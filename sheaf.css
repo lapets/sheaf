@@ -138,6 +138,11 @@ body { font-family: Times,serif; }
 #sheaf .argument       { margin:0px 20px 0px 20px; padding:0px 15px 0px 15px; background-color:#F6F6F6; padding:10px; border:2px solid #FFFFFF; }
 #sheaf .argument:hover { margin:0px 20px 0px 20px; padding:0px 15px 0px 15px; background-color:#F6F6F6; padding:10px; border:2px solid green; } /*D7F8D7*/
 
+.footer { margin:0px; padding:0px; width:100%; text-align:right; border-top:1px solid #DFDFDF; }
+.footer .sheaflink { color:#AFAFAF; font-family:Verdana,Arial,sans-serif; font-size:10px; margin:5px; padding:5px; text-align:right; }
+.footer .sheaflink a { color:#777777; text-decoration:none; }
+.footer .sheaflink a:hover { color:#AFAFAF; text-decoration:none; }
+
 .html_matrix_lft { border-left:1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000; }
 .html_matrix_rgt { border-right:1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000; }
 .html_matrix_entry { text-align:center; padding-left:2px; padding-right:2px; margin:0px; }

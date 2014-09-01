@@ -425,7 +425,7 @@ class Sheaf {
 
       // Render the XML as HTML.
       if ($tagPath == '/sheaf')
-        echo "\n".'</div></body>';
+        echo "\n".'</div><div class="footer"><div class="sheaflink">represented and rendered using <a href="http://sheaf.io">sheaf</a></div></div></body>';
       if ($tagPath == '/sheaf/section' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         echo "\n".'</div>';
         $counter['section']++;
