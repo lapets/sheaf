@@ -46,7 +46,7 @@ class Sheaf {
     if (!isset($sheaf))
       $sheaf = array();
     if (!array_key_exists('file', $sheaf) && !array_key_exists('content', $sheaf))
-      die(sprintf("sheaf: no input file or content specified. Exiting."));
+      die(sprintf("sheaf: no input file or content specified; exiting."));
     if (!array_key_exists('path', $sheaf))
       $sheaf['path'] = '';
     if (!array_key_exists('toc', $sheaf))
@@ -478,6 +478,8 @@ class Sheaf {
         || $tagPath == '/sheaf/appendix/subsection/example'
         || $tagPath == '/sheaf/section/subsection/exercise'
         || $tagPath == '/sheaf/appendix/subsection/exercise'
+        || $tagPath == '/sheaf/section/subsection/diagram'
+        || $tagPath == '/sheaf/appendix/subsection/diagram'
         || $tagPath == '/sheaf/review/exercise' ) {
         echo '</div></div></div>';     
       }
