@@ -31,7 +31,8 @@ class Sheaf {
       'algorithm' => 'Algorithm',
       'protocol' => 'Protocol',
       'example' => 'Example',
-      'exercise' => 'Exercise'
+      'exercise' => 'Exercise',
+      'diagram' => 'Diagram'
     );
 
   // The configuration.
