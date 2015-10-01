@@ -462,27 +462,13 @@ class Sheaf {
       if ($pathLeaf === 'parts') echo '</ol>';
       if ($pathLeaf === 'part') echo '</li>';
 
-      if ( $tagPath == '/sheaf/section/subsection/definition'
-        || $tagPath == '/sheaf/appendix/subsection/definition'
-        || $tagPath == '/sheaf/section/subsection/fact'
-        || $tagPath == '/sheaf/appendix/subsection/fact'
-        || $tagPath == '/sheaf/section/subsection/theorem'
-        || $tagPath == '/sheaf/appendix/subsection/theorem'
-        || $tagPath == '/sheaf/section/subsection/conjecture'
-        || $tagPath == '/sheaf/appendix/subsection/conjecture'
-        || $tagPath == '/sheaf/section/subsection/algorithm'
-        || $tagPath == '/sheaf/appendix/subsection/algorithm'
-        || $tagPath == '/sheaf/section/subsection/protocol'
-        || $tagPath == '/sheaf/appendix/subsection/protocol'
-        || $tagPath == '/sheaf/section/subsection/example'
-        || $tagPath == '/sheaf/appendix/subsection/example'
-        || $tagPath == '/sheaf/section/subsection/exercise'
-        || $tagPath == '/sheaf/appendix/subsection/exercise'
-        || $tagPath == '/sheaf/section/subsection/diagram'
-        || $tagPath == '/sheaf/appendix/subsection/diagram'
-        || $tagPath == '/sheaf/review/exercise' ) {
-        echo '</div></div></div>';     
-      }
+      if ( $tagPath == '/sheaf/review/exercise' )
+        echo '</div></div></div>';
+      foreach (sheaf::$blocks as $tag => $name)
+        if ( $tagPath == '/sheaf/section/subsection/'.$tag
+          || $tagPath == '/sheaf/appendix/subsection/'.$tag
+           )
+          echo '</div></div></div>';
 
       if ( $pathLeaf === 'instructions' ) echo '</div>';
 
