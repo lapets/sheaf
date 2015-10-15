@@ -358,6 +358,7 @@ class Sheaf {
       // Source code and text blocks.
       if ($pathLeaf == "code") echo "\n".'<div class="code"><div class="source">'; //<pre>
       if ($pathLeaf == "text") echo "\n".'<span class="text">';
+      if ($pathLeaf == "content") echo "\n".'<div>';
     }}
     if (!function_exists('parse_render_val')) { function parse_render_val($parser, $data) {
       global $hooks;
@@ -387,6 +388,7 @@ class Sheaf {
         || $pathLeaf === 'paragraph'
         || $pathLeaf === 'solution'
         || $pathLeaf === 'code'
+        || $pathLeaf === 'content'
         || $pathLeaf === 'text'
         || $pathLeaf === 'instructions'
         || $pathLeaf === 'item'
@@ -485,6 +487,7 @@ class Sheaf {
 
       if ($pathLeaf == "solution") echo '</div></div>';
       if ($pathLeaf == "text") echo '</span>';
+      if ($pathLeaf == "content") echo '</div>';
       if ($pathLeaf == "code") echo '</div></div>'; //</pre>
 
       $tagPath = substr($tagPath, 0, strlen($tagPath) - strlen($name) - 1);
