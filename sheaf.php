@@ -115,6 +115,10 @@ class Sheaf {
         $id = 'M.'.$counter['midterm'];
         $tocHTML .= ' <li><a href="#'.$id.'"><b>Midterm: '.$attrs['title']."</b></a>\n  <ul>";
       }
+      if ($tagPath == '/sheaf/final') {
+        $id = 'F';
+        $tocHTML .= ' <li><a href="#'.$id.'"><b>Final: '.$attrs['title']."</b></a>\n  <ul>";
+      }
       if ($tagPath == '/sheaf/appendix') {
         $id = $counter['appendix']; //$attrs['id'];
         $tocHTML .= ' <li>Appendix '.$counter['appendix'].'. <a href="#'.$id.'">'.$attrs['title']."</a>\n  <ul>";
@@ -160,6 +164,9 @@ class Sheaf {
       if ($tagPath == '/sheaf/midterm') {
         $tocHTML .= "\n  </ul>\n </li>";
         $counter['midterm']++;
+      }
+      if ($tagPath == '/sheaf/final') {
+        $tocHTML .= "\n  </ul>\n </li>";
       }
       if ($tagPath == '/sheaf/section/subsection') {
         $counter['subsection']++;
@@ -255,6 +262,12 @@ class Sheaf {
         echo '<h2 class="linked"><span class="link-title">[<a href="#'.$id.'">link</a>]&nbsp;&nbsp;</span>'
            . '<span class="header_numeral">Midterm.</span> '.$attrs['title'].'</h2>';
       }
+      if ($tagPath == '/sheaf/final') {
+        $id = 'F'; //$attrs['id'];
+        echo '<a name="'.$id.'"></a><div class="final"><hr style="margin-bottom:120px;"/>';
+        echo '<h2 class="linked"><span class="link-title">[<a href="#'.$id.'">link</a>]&nbsp;&nbsp;</span>'
+           . '<span class="header_numeral">Final.</span> '.$attrs['title'].'</h2>';
+      }
       if ($tagPath == '/sheaf/section/subsection' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         $id = $counter['section'].'.'.$counter['subsection']; //$attrs['id'];
         echo "\n  ".'<a name="'.$id.'"></a><div class="subsection">';
@@ -338,6 +351,12 @@ class Sheaf {
       // Collections of inference rules.
       if ($pathLeaf === "inferences") {
         echo '<div class="inferences">';
+      }
+      if ($pathLeaf === "inferencesTable") {
+        echo '<table style="font-size:14px;"><tr>';
+      }
+      if ($pathLeaf === "inferencesTableCol") {
+        echo '<td>';
       }
       if ($pathLeaf === "inference") {
         echo '<table class="inference"><tr>';
@@ -481,6 +500,8 @@ class Sheaf {
       if ($pathLeaf == "item") echo '</li>';
 
       if ($pathLeaf === "inferences") echo '</div>';
+      if ($pathLeaf === "inferencesTable")  echo '</tr></table>';
+      if ($pathLeaf === "inferencesTableCol") echo '</td>';
       if ($pathLeaf === "inference") echo '</table></td></tr></table>';
       if ($pathLeaf === "premises") echo '&nbsp;</td></tr>';
       if ($pathLeaf === "conclusion") echo '&nbsp;</td></tr>';
