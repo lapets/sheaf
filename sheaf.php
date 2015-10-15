@@ -515,7 +515,7 @@ class Sheaf {
         || $tagPath == '/sheaf/section/subsection/diagram'
         || $tagPath == '/sheaf/appendix/subsection/diagram'
         || $tagPath == '/sheaf/review/exercise' ) {
-        echo '</div></div></div>';
+        echo '</div></div></div>';     
       }
       // Above block is obsolete but restored to deal with a bug.
 
