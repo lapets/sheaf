@@ -406,7 +406,7 @@ class Sheaf {
         || $tagPath == '/sheaf/section/subsection/exercise'
         || $tagPath == '/sheaf/appendix/subsection/exercise'
         || $tagPath == '/sheaf/section/subsection/diagram'
-        || $tagPath == '/sheaf/appendix/subsection/diagram' 
+        || $tagPath == '/sheaf/appendix/subsection/diagram'
         || $tagPath == '/sheaf/review/exercise'
         || $pathLeaf === 'paragraph'
         || $pathLeaf === 'solution'
@@ -498,7 +498,7 @@ class Sheaf {
             echo '</div></div></div>';
           break;
         }*/
-      
+
       if ( $tagPath == '/sheaf/section/subsection/definition'
         || $tagPath == '/sheaf/appendix/subsection/definition'
         || $tagPath == '/sheaf/section/subsection/fact'

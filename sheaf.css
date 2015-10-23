@@ -92,6 +92,13 @@ body { font-family: Times,serif; }
 #sheaf .midterm .problems .problem .part { margin:10px 0px 0px -20px; }
 #sheaf .midterm_title { text-decoration:underline; }
 
+#sheaf .final { }
+#sheaf .final .problems { margin-left:-20px; }
+#sheaf .final .problems .problem { margin:0px 0px 10px 0px; }
+#sheaf .final .problems .problem .parts { margin:10px 0px 0px 0px; list-style-type:lower-alpha; }
+#sheaf .final .problems .problem .part { margin:10px 0px 0px -20px; }
+#sheaf .final_title { text-decoration:underline; }
+
 #sheaf ul { padding-top:0px 0px 0px 5px; margin:8px 0px 8px 0px; }
 #sheaf ul li ul { padding-top:0px 0px 0px 5px; margin:0px 0px 0px 0px; }
 #sheaf ol { margin-left:8px; padding-top:0px 0px 0px 5px; }
