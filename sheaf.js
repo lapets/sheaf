@@ -15,12 +15,13 @@
 
 /********************************************************************
 */
+
 $(document).ready(function() {
   $('.solution_text').hide();
   $('.solution_toggle').click(function(e) {
     e.preventDefault();
     var sol = $(this).prev();
-    $(this).text((sol.is(':visible')) ? 'Click to Show Solution' : 'Click to Hide Solution');
+    $(this).text((sol.is(':visible')) ? 'show solution' : 'hide solution');
     sol.slideToggle();
   });
 })

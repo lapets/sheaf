@@ -127,6 +127,8 @@ body { font-family: Times,serif; }
 #sheaf .exercise_required { padding:8px; white-space:normal; background-color:#D7F8D7; }
 #sheaf .solution_container { border:1px dotted green; padding:0px; margin:12px 8px 8px 8px; }
 #sheaf .solution_container .solution { background-color:#E6F9F4; border:1px dotted green; padding:8px 8px 8px 8px; }
+/* #sheaf .solution_container .solution .solution_content { display:none; } */
+#sheaf .solution_container .solution .solution_toggle { font-family:Verdana,Arial,sans-serif; font-size:10px; color:#AAAAAA; cursor:pointer; padding:0px 0px 0px 0px; margin:-5px 0px -5px 0px; }
 #sheaf .diagram { margin:14px; text-align:center; width:100%; font-size:12px; font-family:Arial,Sans-serif; }
 #sheaf .diagram .container { border-spacing:7px; margin:0 auto; }
 #sheaf .diagram .container .box { font-weight:bold; padding:2px 10px 2px 10px; border:1px dashed #444444; text-align:center; }
