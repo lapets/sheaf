@@ -32,7 +32,7 @@ class Sheaf {
       'protocol' => 'Protocol',
       'example' => 'Example',
       'exercise' => 'Exercise',
-      'diagram' => 'Diagram'
+      'diagram' => ''
     );
 
   // The configuration.
@@ -318,10 +318,13 @@ class Sheaf {
              . '<div class="linked block" style="white-space:nowrap;">'
              . '<div style=" display:inline; vertical-align:middle;" class="link-block">[<a href="'.$link.'">link</a>]&nbsp;&nbsp;</div>'
              . '<div style=" width:100%; display:inline-block;">'
-             . '<div style="width:auto;" class="'.$classes.'"><b>'.$name;
-          if (array_key_exists('title', $attrs))
-            echo ' ('.$attrs['title'].')';
-          echo ':</b> ';
+             . '<div style="width:auto;" class="'.$classes.'">';
+          if (strlen($name) > 0) { // Only show label if there is a label.
+            echo '<b>'.$name;
+            if (array_key_exists('title', $attrs))
+              echo ' ('.$attrs['title'].')';
+            echo ':</b> ';
+          }
         }
       }
 
