@@ -232,7 +232,7 @@ class Sheaf {
         echo "\n".'<meta charset="utf-8">';
         echo "\n".'<title>'.$attrs['title'].'</title>';
         echo "\n".'<link rel="stylesheet" href="'.$sheaf['path'].'sheaf.css">';
-        echo "\n".'<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>';
+        echo "\n".'<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>';
         echo "\n".'<script type="text/javascript" src="'.$sheaf['path'].'sheaf.js"></script>';
         echo "\n".'</head>';
         echo "\n".'<body>';
