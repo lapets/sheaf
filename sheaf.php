@@ -1,5 +1,5 @@
 <?php /**************************************************************
-** 
+**
 ** sheaf.php
 **
 **   A library that supports the representation and automated
@@ -37,9 +37,9 @@ class Sheaf {
 
   // The configuration.
   private $sheaf = null;
-  
+
   public function Sheaf ($m) {
-  
+
     global $sheaf;
     $sheaf = $m;
 
@@ -74,7 +74,7 @@ class Sheaf {
 
     $tocHTML = sheaf::parse_render_toc($this->sheaf, $xml);
     sheaf::parse_render($this->sheaf, $xml, $tocHTML);
-    
+
     echo "\n"."</html>"."\n"."<!--eof-->";
   }
 
@@ -125,19 +125,19 @@ class Sheaf {
       }
       if ($tagPath == '/sheaf/section/subsection') {
         $id = $counter['section'].'.'.$counter['subsection']; //$attrs['id'];
-        $tocHTML .= 
+        $tocHTML .=
             '  <li>'.$counter['section'].'.'.$counter['subsection'].'.'
           . ' <a href="#'.$id.'">'.$attrs['title'].'</a></li>';
       }
       if ($tagPath == '/sheaf/appendix/subsection') {
         $id = $counter['appendix'].'.'.$counter['subsection']; //$attrs['id'];
-        $tocHTML .= 
+        $tocHTML .=
             '  <li>'.$counter['appendix'].'.'.$counter['subsection'].'.'
           . ' <a href="#'.$id.'">'.$attrs['title'].'</a></li>';
       }
       if ($tagPath == '/sheaf/section/assignment') {
         $id = $counter['section'].'.'.$counter['subsection']; //$attrs['id'];
-        $tocHTML .= 
+        $tocHTML .=
             '  <li>'.$counter['section'].'.'.$counter['subsection'].'.'
           . ' <a href="#'.$id.'"><b>Assignment #'.$counter['assignment'].': '.$attrs['title'].'</b></a></li>';
       }
@@ -149,7 +149,7 @@ class Sheaf {
       global $tocHTML;
       global $counter;
       global $tagPath;
-    
+
       if ($tagPath == '/sheaf')
         $tocHTML .= '</ul></div>';
       if ($tagPath == '/sheaf/section') {
@@ -209,7 +209,7 @@ class Sheaf {
         'midterm' => 1,
         'appendix' => 'A'
       );
-  
+
     global $tagPath; $tagPath = '';
 
     if (!function_exists('parse_render_lft')) {function parse_render_lft($parser, $name, $attrs) {
@@ -285,7 +285,7 @@ class Sheaf {
         echo '<h3 class="linked"><span class="link-title">[<a href="#'.$id.'">link</a>]&nbsp;&nbsp;</span>'
            . '<span class="header_numeral">'
            . $counter['section'].'.'.$counter['subsection'].'.</span> '
-           . '<span class="assignment_title">Assignment #'.$counter['assignment'].': '.$attrs['title'].'</span></h3>';      
+           . '<span class="assignment_title">Assignment #'.$counter['assignment'].': '.$attrs['title'].'</span></h3>';
       }
       if ($pathLeaf === 'problems')  echo '<ol class="problems">';
       if ($pathLeaf === 'problem') echo '<li class="problem">';
@@ -303,7 +303,7 @@ class Sheaf {
         echo '<a name="'.$id.'"></a><div class="subsection">';
         echo '<h3 class="linked"><span class="link-title">[<a href="#'.$id.'">link</a>]&nbsp;&nbsp;</span>'
            . '<span class="header_numeral">'.$counter['appendix'].'.'.$counter['subsection'].'.</span> '
-           . $attrs['title'].'</h3>';      
+           . $attrs['title'].'</h3>';
       }
 
       // Categorized blocks.
@@ -312,7 +312,7 @@ class Sheaf {
           || $tagPath == '/sheaf/appendix/subsection/'.$tag
           || $tagPath == '/sheaf/review/'.$tag ) {
           $id = array_key_exists('id', $attrs) ? $attrs['id'] : '';
-          $link = array_key_exists('link', $attrs) ? $attrs['link'] : '#'.$id; 
+          $link = array_key_exists('link', $attrs) ? $attrs['link'] : '#'.$id;
           $classes = $tag.((array_key_exists('required', $attrs) && $attrs['required'] == 'true') ? '_required' : '');
           echo "\n".'<a name="'.$id.'"></a>'
              . '<div class="linked block" style="white-space:nowrap;">'
@@ -332,7 +332,7 @@ class Sheaf {
       if ($pathLeaf === "instructions") {
         echo '<div class="instructions">';
       }
-    
+
       // Paragraphs with and without titles.
       if ($pathLeaf == "paragraph") {
         echo '<div class="paragraph">';
@@ -373,9 +373,9 @@ class Sheaf {
       if ($pathLeaf === "conclusion") {
         echo '<tr><td class="conclusion">&nbsp;';
       }
-    
+
       // Solutions (in examples, exercises, and problems).
-      if ($pathLeaf == "solution") echo "\n".'<div class="solution_container"><div class="solution">';
+      if ($pathLeaf == "solution") echo "\n".'<div class="solution_container"><div class="solution"><div class="solution_text">';
 
       // Source code and text blocks.
       if ($pathLeaf == "code") echo "\n".'<div class="code"><div class="source">'; //<pre>
@@ -445,7 +445,7 @@ class Sheaf {
       $pathLeaf = sheaf::pathLeaf($tagPath);
 
       $attrs = array_pop($attributes);
-    
+
       // Update the hooks.
       array_pop($hooks);
 
@@ -518,7 +518,7 @@ class Sheaf {
         || $tagPath == '/sheaf/section/subsection/diagram'
         || $tagPath == '/sheaf/appendix/subsection/diagram'
         || $tagPath == '/sheaf/review/exercise' ) {
-        echo '</div></div></div>';     
+        echo '</div></div></div>';
       }
       // Above block is obsolete but restored to deal with a bug.
 
@@ -537,7 +537,7 @@ class Sheaf {
       if ($pathLeaf === "premises") echo '&nbsp;</td></tr>';
       if ($pathLeaf === "conclusion") echo '&nbsp;</td></tr>';
 
-      if ($pathLeaf == "solution") echo '</div></div>';
+      if ($pathLeaf == "solution") echo '<hr /></div><a href=\'\' class=\'solution_toggle\'>Click to Show Solution</a></div></div>';
       if ($pathLeaf == "text") echo '</span>';
       if ($pathLeaf == "content") echo '</div>';
       if ($pathLeaf == "code") echo '</div></div>'; //</pre>
@@ -562,10 +562,10 @@ class Sheaf {
 
   private static function do_xml_parse($startF, $datF, $endF, $xml) {
     $xml_parser = sheaf::mk_xml_parser($startF, $datF, $endF);
-    if (!xml_parse($xml_parser, $xml)) 
+    if (!xml_parse($xml_parser, $xml))
       die(
         sprintf(
-          "XML error: %s at line %d", 
+          "XML error: %s at line %d",
           xml_error_string(xml_get_error_code($xml_parser)),
           xml_get_current_line_number($xml_parser)
         )
