@@ -138,6 +138,8 @@ body { font-family: Times,serif; }
 #sheaf .fig_table2 .cell { padding:4px 10px 4px 10px; margin:0px 10px 0px 10px; white-space:nowrap; background-color:#EFEFEF;}
 #sheaf .truthtable td { text-align:center; }
 
+#sheaf .button { font-family:Verdana,Arial,sans-serif; font-size:10px; color:#AAAAAA; cursor:pointer; padding:0px 0px 0px 0px; margin:0px 0px 0px 0px; width:100%; }
+
 #sheaf .btn { display:inline-block; margin-right:5px; font-size:10px; font-family:Verdana,Arial,Sans-serif; background-color:#CFCFCF; cursor:pointer; }
 #sheaf .btn_verify { display:inline-block; padding:5px; font-size:10px; font-family:Verdana,Arial,Sans-serif; background-color:#CFCFCF; cursor:pointer; }
 #sheaf .btn_format { display:inline-block; padding:5px; font-size:10px; font-family:Verdana,Arial,Sans-serif; background-color:#CFCFCF; cursor:pointer; }
