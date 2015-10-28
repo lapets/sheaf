@@ -18,7 +18,7 @@
 
 $(document).ready(function() {
   $('.solution_toggle').click(function(e) {
-    var sol = $(this).prev();
+    var sol = $(this).next();
     $(this).text((sol.is(':visible')) ? 'show solution' : 'hide solution');
     sol.slideToggle();
   });

@@ -375,7 +375,7 @@ class Sheaf {
       }
 
       // Solutions (in examples, exercises, and problems).
-      if ($pathLeaf == "solution") echo "\n".'<div class="solution_container"><div class="solution"><div class="solution_content" style="display:none;">';
+      if ($pathLeaf == "solution") echo "\n".'<div class="solution_container"><div class="solution"><button class="solution_toggle">show solution</button><div class="solution_content" style="display:none;">';
 
       // Source code and text blocks.
       if ($pathLeaf == "code") echo "\n".'<div class="code"><div class="source">'; //<pre>
@@ -537,7 +537,7 @@ class Sheaf {
       if ($pathLeaf === "premises") echo '&nbsp;</td></tr>';
       if ($pathLeaf === "conclusion") echo '&nbsp;</td></tr>';
 
-      if ($pathLeaf == "solution") echo '</div><span class="solution_toggle">show solution</span></div></div>';
+      if ($pathLeaf == "solution") echo '</div></div></div>';
       if ($pathLeaf == "text") echo '</span>';
       if ($pathLeaf == "content") echo '</div>';
       if ($pathLeaf == "code") echo '</div></div>'; //</pre>
