@@ -33,7 +33,7 @@ function sheaf_hook_machine ($s) {
 
   // Render as HTML.
   $s = sheaf::r($s, "\n", "<br/>");
-  $s = '<div class="code"><div class="source"><br/>'.$s.'<br/></div><button '.$link.' style="margin-top:15px; width:100%;">simulator</button></div>';
+  $s = '<div class="button"><button '.$link.'>simulator</button></div><div class="code" style="margin-top:0px; border-top:0px;"><div class="source"><br/>'.$s.'<br/><br/></div></div>';
   return $s;
 }
 
