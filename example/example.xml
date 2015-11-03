@@ -1,0 +1,17 @@
+<sheaf title="Course Name">
+  <section title="Section Title">
+    <text><![CDATA[
+Example section content.
+    ]]></text>
+    <subsection title="Subsection Title">
+      <text><![CDATA[
+Example subsection content.
+      ]]></text>
+    </subsection>
+  </section>
+  <appendix title="Appendix Title">
+    <text><![CDATA[
+Appendix content.
+    ]]></text>
+  </appendix>
+</sheaf>
