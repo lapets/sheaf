@@ -320,10 +320,10 @@ class Sheaf {
              . '<div style=" width:100%; display:inline-block;">'
              . '<div style="width:auto;" class="'.$classes.'">';
           if (strlen($name) > 0) { // Only show label if there is a label.
-            echo '<b>'.$name;
+            echo '<span class="block_label">'.$name;
             if (array_key_exists('title', $attrs))
               echo ' ('.$attrs['title'].')';
-            echo ':</b> ';
+            echo ':</span> ';
           }
         }
       }

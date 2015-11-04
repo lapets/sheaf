@@ -109,22 +109,23 @@ body { font-family: Times,serif; }
 #sheaf a:hover { text-decoration:underline; color:firebrick; }
 
 #sheaf .block { margin: 12px 0px 12px 0px; }
-#sheaf .definition { padding:8px; white-space:normal; }
-#sheaf .fact { padding:8px; white-space:normal; }
-#sheaf .theorem { padding:8px; white-space:normal; }
-#sheaf .conjecture { padding:8px; white-space:normal; background-color:#F6F3C8; }
-#sheaf .algorithm { padding:8px; white-space:normal; }
-#sheaf .protocol { padding:8px; white-space:normal; }
-#sheaf .example { padding:8px; white-space:normal; }
-#sheaf .exercise { padding:8px; white-space:normal; }
-#sheaf .definition_required { padding:8px; white-space:normal; background-color:#F6F3C8; }
-#sheaf .fact_required { padding:8px; white-space:normal; background-color:#F6F3C8; } /*F9F7DC*/
-#sheaf .theorem_required { padding:8px; white-space:normal; background-color:#F6F3C8; }
-#sheaf .conjecture_required { padding:8px; white-space:normal; background-color:#F6F3C8; }
-#sheaf .algorithm_required { padding:8px; white-space:normal; background-color:#F6F3C8; }
-#sheaf .protocol_required { padding:8px; white-space:normal; background-color:#F6F3C8; }
-#sheaf .example_required { padding:8px; white-space:normal; background-color:#D7F8D7; }
-#sheaf .exercise_required { padding:8px; white-space:normal; background-color:#D7F8D7; }
+#sheaf .block_label { font-weight:bold; color:#222222; }
+#sheaf .definition { padding:7px; white-space:normal; }
+#sheaf .fact { padding:7px; white-space:normal; }
+#sheaf .theorem { padding:7px; white-space:normal; }
+#sheaf .conjecture { padding:7px; white-space:normal; }
+#sheaf .algorithm { padding:7px; white-space:normal; }
+#sheaf .protocol { padding:7px; white-space:normal; }
+#sheaf .example { padding:7px; white-space:normal; }
+#sheaf .exercise { padding:7px; white-space:normal; }
+#sheaf .definition_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; } /* #F6F3C8 (more saturated) */
+#sheaf .fact_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; } /*F9F7DC*/
+#sheaf .theorem_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; }
+#sheaf .conjecture_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; }
+#sheaf .algorithm_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; }
+#sheaf .protocol_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; }
+#sheaf .example_required { padding:7px; white-space:normal; background-color:#E1F8E1; border:1px solid #CBEACB; } /* #D7F8D7 (more saturated) */
+#sheaf .exercise_required { padding:7px; white-space:normal; background-color:#E1F8E1; border:1px solid #CBEACB; }
 
 #sheaf .solution_container { border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:0px 0px -10px 0px; margin:0px 8px 8px 8px; }
 #sheaf .solution_container .solution { background-color:#E6F9F4; border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:8px 8px 0px 8px; }
