@@ -537,7 +537,7 @@ class Sheaf {
       if ($pathLeaf === "premises") echo '&nbsp;</td></tr>';
       if ($pathLeaf === "conclusion") echo '&nbsp;</td></tr>';
 
-      if ($pathLeaf == "solution") echo '</div></div>';
+      if ($pathLeaf == "solution") echo '</div></div><div class="solution_spacer"></div>';
       if ($pathLeaf == "text") echo '</span>';
       if ($pathLeaf == "content") echo '</div>';
       if ($pathLeaf == "code") echo '</div></div>'; //</pre>

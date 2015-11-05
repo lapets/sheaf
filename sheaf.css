@@ -128,7 +128,8 @@ body { font-family: Times,serif; }
 #sheaf .exercise_required { padding:7px; white-space:normal; background-color:#E1F8E1; border:1px solid #CBEACB; }
 
 #sheaf .solution_container { border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:0px 0px -10px 0px; margin:0px 8px 8px 8px; }
-#sheaf .solution_container .solution { background-color:#E6F9F4; border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:8px 8px 0px 8px; }
+#sheaf .solution_container .solution { background-color:#E6F9F4; border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:8px 8px 8px 8px; }
+#sheaf .solution_spacer { margin-bottom:4px; }
 
 #sheaf .diagram { margin:14px; text-align:center; width:100%; font-size:12px; font-family:Arial,Sans-serif; }
 #sheaf .diagram .container { border-spacing:7px; margin:0 auto; }
