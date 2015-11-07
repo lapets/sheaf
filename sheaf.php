@@ -377,10 +377,11 @@ class Sheaf {
       // Solutions (in examples, exercises, and problems).
       if ($pathLeaf == "solution") echo "\n".'<div class="button"><button class="solution_toggle">show solution</button></div><div class="solution_container" style="display:none;"><div class="solution">';
 
-      // Source code and text blocks.
+      // Source code, text, content, and plugin blocks.
       if ($pathLeaf == "code") echo "\n".'<div class="code"><div class="source">'; //<pre>
       if ($pathLeaf == "text") echo "\n".'<span class="text">';
       if ($pathLeaf == "content") echo "\n".'<div>';
+      if ($pathLeaf == "plugin") echo "\n".'<div>';
     }}
     if (!function_exists('parse_render_val')) { function parse_render_val($parser, $data) {
       global $hooks;
@@ -412,6 +413,7 @@ class Sheaf {
         || $pathLeaf === 'solution'
         || $pathLeaf === 'code'
         || $pathLeaf === 'content'
+        || $pathLeaf === 'plugin'
         || $pathLeaf === 'text'
         || $pathLeaf === 'instructions'
         || $pathLeaf === 'item'
@@ -540,6 +542,7 @@ class Sheaf {
       if ($pathLeaf == "solution") echo '</div></div><div class="solution_spacer"></div>';
       if ($pathLeaf == "text") echo '</span>';
       if ($pathLeaf == "content") echo '</div>';
+      if ($pathLeaf == "plugin") echo '</div>';
       if ($pathLeaf == "code") echo '</div></div>'; //</pre>
 
       $tagPath = substr($tagPath, 0, strlen($tagPath) - strlen($name) - 1);
