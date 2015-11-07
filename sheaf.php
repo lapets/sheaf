@@ -314,7 +314,12 @@ class Sheaf {
         } // For each categorized block type.
 
         if ($pathLeaf === "paragraph") echo '<div class="paragraph">' . ((array_key_exists('title', $attrs)) ? ('<b>'.$attrs['title'].'.</b> ') : '');
+        if ($pathLeaf === "orderedlist") echo '<ol'.((array_key_exists('style', $attrs)) ? (' style="'.$attrs['style'].'"') : '').'>';
+        if ($pathLeaf === "unorderedlist") echo '<ul>';
         if ($pathLeaf === "text") echo "\n".'<span class="text">';
+        if ($pathLeaf === "content") echo "\n".'<div>';
+        if ($pathLeaf === "code") echo "\n".'<div class="code"><div class="source">';
+        if ($pathLeaf === "plugin") echo "\n".'<div>';
 
       } else { // Handlers for blocks that do not appear at top level.
 
@@ -338,6 +343,7 @@ class Sheaf {
         if ($pathLeaf === "text") echo "\n".'<span class="text">';
         if ($pathLeaf === "content") echo "\n".'<div>';
         if ($pathLeaf === "code") echo "\n".'<div class="code"><div class="source">';
+        if ($pathLeaf === "diagram") echo "\n".'<div class="diagram">';
         if ($pathLeaf === "plugin") echo "\n".'<div>';
 
         // Inference rule tables, inference rules, and inference rule components.
@@ -369,7 +375,6 @@ class Sheaf {
         || $pathLeaf === 'protocol'
         || $pathLeaf === 'example'
         || $pathLeaf === 'exercise'
-        || $pathLeaf === 'diagram'
         || $pathLeaf === 'instructions'
         || $pathLeaf === 'solution'
         || $pathLeaf === 'paragraph'
@@ -377,6 +382,7 @@ class Sheaf {
         || $pathLeaf === 'text'
         || $pathLeaf === 'content'
         || $pathLeaf === 'code'
+        || $pathLeaf === 'diagram'
         || $pathLeaf === 'plugin'
         || $pathLeaf === 'premises'
         || $pathLeaf === 'conclusion'
@@ -473,7 +479,12 @@ class Sheaf {
           echo '</div></div></div>';
 
         if ($pathLeaf === 'paragraph') echo '</div>';
+        if ($pathLeaf === "orderedlist") echo '</ol>';
+        if ($pathLeaf === "unorderedlist") echo '</ul>';
         if ($pathLeaf === "text") echo '</span>';
+        if ($pathLeaf === "content") echo '</div>';
+        if ($pathLeaf === "code") echo '</div></div>';
+        if ($pathLeaf === "plugin") echo '</div>';
 
       } else { // Handlers for blocks that do not appear at top level.
 
@@ -493,6 +504,7 @@ class Sheaf {
         if ($pathLeaf === "text") echo '</span>';
         if ($pathLeaf === "content") echo '</div>';
         if ($pathLeaf === "code") echo '</div></div>';
+        if ($pathLeaf === "diagram") echo '</div>';
         if ($pathLeaf === "plugin") echo '</div>';
 
         if ($pathLeaf === "inferences") echo '</div>';
