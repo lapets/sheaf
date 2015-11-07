@@ -211,7 +211,7 @@ class Sheaf {
     global $tagPath; $tagPath = '';
 
     /******************************************************************
-    ** Add XML parsing handler for starting delimiters.
+    ** Add XML parsing handler for opening delimiters.
     */
     if (!function_exists('parse_render_lft')) {function parse_render_lft($parser, $name, $attrs) {
       global $sheaf;
@@ -220,6 +220,7 @@ class Sheaf {
       global $counter;
       global $tagPath;
       global $tocHTML;
+      $pathPrefix = $tagPath;
       $tagPath .= '/'.$name;
       $pathLeaf = sheaf::pathLeaf($tagPath);
 
@@ -247,41 +248,37 @@ class Sheaf {
       if ($tagPath == '/sheaf/section' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : $counter['section'];
         echo "\n".'<a name="'.$id.'"></a>'."\n".'<div class="section"><hr style="margin-bottom:120px;"/>';
-        echo '<h2 class="linked"><span class="link-title">'
-           // . '[<a href="?id='.$id.'">page</a>]<br/>'
-           . '[<a href="#'.$id.'">link</a>]&nbsp;&nbsp;'
-           . '</span>'
-           . '<span class="header_numeral">'.$counter['section'].'.</span> '.$attrs['title'].'</h2>';
+        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">'.$counter['section'].'.</span> '.$attrs['title'].'</h2>';
       }
       if ($tagPath == '/sheaf/review') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('R.'.$counter['review']);
         echo '<a name="'.$id.'"></a><div class="review"><hr style="margin-bottom:120px;"/>';
-        echo '<h2 class="linked">'.link($id).'<span class="header_numeral">Review #'.$counter['review'].'.</span> '.$attrs['title'].'</h2>';
+        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Review #'.$counter['review'].'.</span> '.$attrs['title'].'</h2>';
       }
       if ($tagPath == '/sheaf/midterm') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('M.'.$counter['midterm']);
         echo '<a name="'.$id.'"></a><div class="midterm"><hr style="margin-bottom:120px;"/>';
-        echo '<h2 class="linked">'.link($id).'<span class="header_numeral">Midterm.</span> '.$attrs['title'].'</h2>';
+        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Midterm.</span> '.$attrs['title'].'</h2>';
       }
       if ($tagPath == '/sheaf/final') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : 'F';
         echo '<a name="'.$id.'"></a><div class="final"><hr style="margin-bottom:120px;"/>';
-        echo '<h2 class="linked">'.link($id).'<span class="header_numeral">Final.</span> '.$attrs['title'].'</h2>';
+        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Final.</span> '.$attrs['title'].'</h2>';
       }
       if ($tagPath == '/sheaf/appendix') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : $counter['appendix'];
         echo '<a name="'.$id.'"></a><div class="appendix"><hr style="margin-bottom:120px;"/>';
-        echo '<h2 class="linked">'.link($id).'<span class="header_numeral">Appendix '.$counter['appendix'].'.</span> '.$attrs['title'].'</h2>';
+        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Appendix '.$counter['appendix'].'.</span> '.$attrs['title'].'</h2>';
       }
       if ($tagPath == '/sheaf/section/subsection' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
         echo "\n  ".'<a name="'.$id.'"></a><div class="subsection">';
-        echo '<h3 class="linked">'.link($id).'<span class="header_numeral">'.$counter['section'].'.'.$counter['subsection'].'.</span> '. $attrs['title'].'</h3>';
+        echo '<h3 class="linked">'.sheaf::link($id).'<span class="header_numeral">'.$counter['section'].'.'.$counter['subsection'].'.</span> '. $attrs['title'].'</h3>';
       }
       if ($tagPath == '/sheaf/appendix/subsection' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['appendix'].'.'.$counter['subsection']);
-        echo '<a name="'.$id.'"></a><div class="subsection">';
-        echo '<h3 class="linked">'.link($id).'<span class="header_numeral">'.$counter['appendix'].'.'.$counter['subsection'].'.</span> '. $attrs['title'].'</h3>';
+        echo "\n  ".'<a name="'.$id.'"></a><div class="subsection">';
+        echo '<h3 class="linked">'.sheaf::link($id).'<span class="header_numeral">'.$counter['appendix'].'.'.$counter['subsection'].'.</span> '. $attrs['title'].'</h3>';
       }
       if ($tagPath == '/sheaf/section/assignment') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
@@ -290,59 +287,69 @@ class Sheaf {
            . '<a name="assignment'.$counter['assignment'].'"></a>'
            . '<a name="hw'.$counter['assignment'].'"></a>'
            . '<div class="assignment">';
-        echo '<h3 class="linked">'.link($id).'<span class="header_numeral">'
+        echo '<h3 class="linked">'.sheaf::link($id).'<span class="header_numeral">'
            . $counter['section'].'.'.$counter['subsection'].'.</span> '
            . '<span class="assignment_title">Assignment #'.$counter['assignment'].': '.$attrs['title'].'</span></h3>';
       }
 
       // Categorized blocks that appear at top level.
-      foreach (sheaf::$blocks as $tag => $name) {
-        if ( $tagPath == '/sheaf/section/subsection/'.$tag
-          || $tagPath == '/sheaf/appendix/subsection/'.$tag
-          || $tagPath == '/sheaf/review/'.$tag ) {
-          $id = array_key_exists('id', $attrs) ? $attrs['id'] : '';
-          $link = array_key_exists('link', $attrs) ? $attrs['link'] : '#'.$id;
-          $classes = $tag.((array_key_exists('required', $attrs) && $attrs['required'] == 'true') ? '_required' : '');
-          echo "\n".'<a name="'.$id.'"></a>'
-             . '<div class="linked block" style="white-space:nowrap;">'
-             . '<div style=" display:inline; vertical-align:middle;" class="link-block">[<a href="'.$link.'">link</a>]&nbsp;&nbsp;</div>'
-             . '<div style=" width:100%; display:inline-block;">'
-             . '<div style="width:auto;" class="'.$classes.'">';
-          if (strlen($name) > 0) // Only show label if there is a label.
-            echo '<span class="block_label">'.$name.((array_key_exists('title', $attrs)) ? (' ('.$attrs['title'].')') : '').':</span> ';
-        }
-      }
+      if ( $pathPrefix === '/sheaf/section'
+        || $pathPrefix === '/sheaf/review'
+        || $pathPrefix === '/sheaf/appendix'
+        || $pathPrefix === '/sheaf/section/subsection'
+        || $pathPrefix === '/sheaf/appendix/subsection'
+         ) {
+        foreach (sheaf::$blocks as $tag => $name) {
+          if ($pathLeaf === $tag) {
+            $id = array_key_exists('id', $attrs) ? $attrs['id'] : '';
+            $classes = $tag.((array_key_exists('required', $attrs) && $attrs['required'] == 'true') ? '_required' : '');
+            echo "\n".'<a name="'.$id.'"></a>'
+               . '<div class="linked block" style="white-space:nowrap;">'
+               . '<div style="display:inline; vertical-align:middle;" class="link-block">[<a href="'.'#'.$id.'">link</a>]&nbsp;&nbsp;</div>'
+               . '<div style="width:100%; display:inline-block;">'
+               . '<div style="width:auto;" class="'.$classes.'">';
+            if (strlen($name) > 0) // Only show label if there is a label.
+              echo '<span class="block_label">'.$name.((array_key_exists('title', $attrs)) ? (' ('.$attrs['title'].')') : '').':</span> ';
+          }
+        } // For each categorized block type.
 
-      // Assignment/exam instructions, problems, and problem parts.
-      if ($pathLeaf === "instructions") echo '<div class="instructions">';
-      if ($pathLeaf === 'problems') echo '<ol class="problems">';
-      if ($pathLeaf === 'problem') echo '<li class="problem">';
-      if ($pathLeaf === 'parts') echo '<ol class="parts">';
-      if ($pathLeaf === 'part') echo '<li class="part">';
+        if ($pathLeaf === "paragraph") echo '<div class="paragraph">' . ((array_key_exists('title', $attrs)) ? ('<b>'.$attrs['title'].'.</b> ') : '');
+        if ($pathLeaf === "text") echo "\n".'<span class="text">';
 
-      // Solutions (in examples, exercises, and problems).
-      if ($pathLeaf === "solution") echo "\n".'<div class="button"><button class="solution_toggle">show solution</button></div><div class="solution_container" style="display:none;"><div class="solution">';
+      } else { // Handlers for blocks that do not appear at top level.
 
-      // Paragraphs and lists.
-      if ($pathLeaf === "paragraph") echo '<div class="paragraph">' . ((array_key_exists('title', $attrs)) ? ('<b>'.$attrs['title'].'.</b> ') : '');
-      if ($pathLeaf === "orderedlist") echo '<ol'.((array_key_exists('style', $attrs)) ? (' style="'.$attrs['style'].'"') : '').'>';
-      if ($pathLeaf === "unorderedlist") echo '<ul>';
-      if ($pathLeaf === "item") echo '<li>' . ((array_key_exists('title', $attrs)) ? ('<b>'.$attrs['title'].': </b>') : '');
+        // Assignment/exam instructions, problems, and problem parts.
+        if ($pathLeaf === "instructions") echo '<div class="instructions">';
+        if ($pathLeaf === 'problems') echo '<ol class="problems">';
+        if ($pathLeaf === 'problem') echo '<li class="problem">';
+        if ($pathLeaf === 'parts') echo '<ol class="parts">';
+        if ($pathLeaf === 'part') echo '<li class="part">';
 
-      // Source code, text, content, and plugin blocks.
-      if ($pathLeaf === "text") echo "\n".'<span class="text">';
-      if ($pathLeaf === "content") echo "\n".'<div>';
-      if ($pathLeaf === "code") echo "\n".'<div class="code"><div class="source">';
-      if ($pathLeaf === "plugin") echo "\n".'<div>';
+        // Solutions (in examples, exercises, and problems).
+        if ($pathLeaf === "solution") echo "\n".'<div class="button"><button class="solution_toggle">show solution</button></div><div class="solution_container" style="display:none;"><div class="solution">';
 
-      // Inference rule tables, inference rules, and inference rule components.
-      if ($pathLeaf === "inferences") echo '<div class="inferences">';
-      if ($pathLeaf === "inferencesTable") echo '<table style="font-size:14px;"><tr>';
-      if ($pathLeaf === "inferencesTableCol") echo '<td>';
-      if ($pathLeaf === "inference") echo '<table class="inference"><tr>' . ((array_key_exists('title', $attrs)) ? ('<td class="title">['.$attrs['title'].']</td>') : '') . '<td><table>';
-      if ($pathLeaf === "premises") echo '<tr><td class="premises">&nbsp;';
-      if ($pathLeaf === "conclusion") echo '<tr><td class="conclusion">&nbsp;';
-    }}
+        // Paragraphs and lists.
+        if ($pathLeaf === "paragraph") echo '<div class="paragraph">' . ((array_key_exists('title', $attrs)) ? ('<b>'.$attrs['title'].'.</b> ') : '');
+        if ($pathLeaf === "orderedlist") echo '<ol'.((array_key_exists('style', $attrs)) ? (' style="'.$attrs['style'].'"') : '').'>';
+        if ($pathLeaf === "unorderedlist") echo '<ul>';
+        if ($pathLeaf === "item") echo '<li>' . ((array_key_exists('title', $attrs)) ? ('<b>'.$attrs['title'].': </b>') : '');
+
+        // Source code, text, content, and plugin blocks.
+        if ($pathLeaf === "text") echo "\n".'<span class="text">';
+        if ($pathLeaf === "content") echo "\n".'<div>';
+        if ($pathLeaf === "code") echo "\n".'<div class="code"><div class="source">';
+        if ($pathLeaf === "plugin") echo "\n".'<div>';
+
+        // Inference rule tables, inference rules, and inference rule components.
+        if ($pathLeaf === "inferences") echo '<div class="inferences">';
+        if ($pathLeaf === "inferencesTable") echo '<table style="font-size:14px;"><tr>';
+        if ($pathLeaf === "inferencesTableCol") echo '<td>';
+        if ($pathLeaf === "inference") echo '<table class="inference"><tr>' . ((array_key_exists('title', $attrs)) ? ('<td class="title">['.$attrs['title'].']</td>') : '') . '<td><table>';
+        if ($pathLeaf === "premises") echo '<tr><td class="premises">&nbsp;';
+        if ($pathLeaf === "conclusion") echo '<tr><td class="conclusion">&nbsp;';
+
+      } // Blocks that are not at top level.
+    }} // Add XML parsing handler for opening delimiters.
 
     /******************************************************************
     ** Add XML parsing handler for delimited content.
@@ -392,7 +399,7 @@ class Sheaf {
 
         echo $out;
       }
-    }}
+    }} // Add XML parsing handler for delimited content.
 
     /******************************************************************
     ** Add XML parsing handler for terminating delimiters.
@@ -402,6 +409,7 @@ class Sheaf {
       global $hooks;
       global $counter;
       global $tagPath;
+      $pathPrefix = sheaf::pathPrefix($tagPath);
       $pathLeaf = sheaf::pathLeaf($tagPath);
 
       $attrs = array_pop($attributes);
@@ -444,45 +452,60 @@ class Sheaf {
         $counter['assignment']++;
       }
 
-      if ( $pathLeaf === 'definition'
-        || $pathLeaf === 'fact'
-        || $pathLeaf === 'theorem'
-        || $pathLeaf === 'conjecture'
-        || $pathLeaf === 'algorithm'
-        || $pathLeaf === 'protocol'
-        || $pathLeaf === 'example'
-        || $pathLeaf === 'exercise'
-        || $pathLeaf === 'diagram'
-        )
-        echo '</div></div></div>';
+      // Categorized blocks that appear at top level.
+      if ( $pathPrefix === '/sheaf/section'
+        || $pathPrefix === '/sheaf/review'
+        || $pathPrefix === '/sheaf/appendix'
+        || $pathPrefix === '/sheaf/section/subsection'
+        || $pathPrefix === '/sheaf/appendix/subsection'
+         ) {
 
-      if ($pathLeaf === 'instructions') echo '</div>';
-      if ($pathLeaf === 'problems')  echo '</ol>';
-      if ($pathLeaf === 'problem') echo '</li>';
-      if ($pathLeaf === 'parts') echo '</ol>';
-      if ($pathLeaf === 'part') echo '</li>';
+        if ( $pathLeaf === 'definition'
+          || $pathLeaf === 'fact'
+          || $pathLeaf === 'theorem'
+          || $pathLeaf === 'conjecture'
+          || $pathLeaf === 'algorithm'
+          || $pathLeaf === 'protocol'
+          || $pathLeaf === 'example'
+          || $pathLeaf === 'exercise'
+          || $pathLeaf === 'diagram'
+          )
+          echo '</div></div></div>';
 
-      if ($pathLeaf === "solution") echo '</div></div><div class="solution_spacer"></div>';
+        if ($pathLeaf === 'paragraph') echo '</div>';
+        if ($pathLeaf === "text") echo '</span>';
 
-      if ($pathLeaf === 'paragraph') echo '</div>';
-      if ($pathLeaf === "orderedlist") echo '</ol>';
-      if ($pathLeaf === "unorderedlist") echo '</ul>';
-      if ($pathLeaf === "item") echo '</li>';
+      } else { // Handlers for blocks that do not appear at top level.
 
-      if ($pathLeaf === "text") echo '</span>';
-      if ($pathLeaf === "content") echo '</div>';
-      if ($pathLeaf === "code") echo '</div></div>';
-      if ($pathLeaf === "plugin") echo '</div>';
-      
-      if ($pathLeaf === "inferences") echo '</div>';
-      if ($pathLeaf === "inferencesTable") echo '</tr></table>';
-      if ($pathLeaf === "inferencesTableCol") echo '</td>';
-      if ($pathLeaf === "inference") echo '</table></td></tr></table>';
-      if ($pathLeaf === "premises") echo '&nbsp;</td></tr>';
-      if ($pathLeaf === "conclusion") echo '&nbsp;</td></tr>';
+        if ($pathLeaf === 'instructions') echo '</div>';
+        if ($pathLeaf === 'problems')  echo '</ol>';
+        if ($pathLeaf === 'problem') echo '</li>';
+        if ($pathLeaf === 'parts') echo '</ol>';
+        if ($pathLeaf === 'part') echo '</li>';
+
+        if ($pathLeaf === "solution") echo '</div></div><div class="solution_spacer"></div>';
+
+        if ($pathLeaf === 'paragraph') echo '</div>';
+        if ($pathLeaf === "orderedlist") echo '</ol>';
+        if ($pathLeaf === "unorderedlist") echo '</ul>';
+        if ($pathLeaf === "item") echo '</li>';
+
+        if ($pathLeaf === "text") echo '</span>';
+        if ($pathLeaf === "content") echo '</div>';
+        if ($pathLeaf === "code") echo '</div></div>';
+        if ($pathLeaf === "plugin") echo '</div>';
+
+        if ($pathLeaf === "inferences") echo '</div>';
+        if ($pathLeaf === "inferencesTable") echo '</tr></table>';
+        if ($pathLeaf === "inferencesTableCol") echo '</td>';
+        if ($pathLeaf === "inference") echo '</table></td></tr></table>';
+        if ($pathLeaf === "premises") echo '&nbsp;</td></tr>';
+        if ($pathLeaf === "conclusion") echo '&nbsp;</td></tr>';
+
+      } // Blocks that are not at top level.
 
       $tagPath = substr($tagPath, 0, strlen($tagPath) - strlen($name) - 1);
-    }}
+    }} // Add XML parsing handler for terminating delimiters.
 
     sheaf::do_xml_parse("parse_render_lft", "parse_render_val", "parse_render_rgt", $xml);
     return null;
