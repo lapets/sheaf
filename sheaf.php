@@ -32,6 +32,7 @@ class Sheaf {
       'protocol' => 'Protocol',
       'example' => 'Example',
       'exercise' => 'Exercise',
+      'table' => '',
       'diagram' => ''
     );
 
@@ -343,6 +344,7 @@ class Sheaf {
         if ($pathLeaf === "text") echo "\n".'<span class="text">';
         if ($pathLeaf === "content") echo "\n".'<div>';
         if ($pathLeaf === "code") echo "\n".'<div class="code"><div class="source">';
+        if ($pathLeaf === "table") echo "\n".'<div>';
         if ($pathLeaf === "diagram") echo "\n".'<div class="diagram">';
         if ($pathLeaf === "plugin") echo "\n".'<div>';
 
@@ -382,6 +384,7 @@ class Sheaf {
         || $pathLeaf === 'text'
         || $pathLeaf === 'content'
         || $pathLeaf === 'code'
+        || $pathLeaf === 'table'
         || $pathLeaf === 'diagram'
         || $pathLeaf === 'plugin'
         || $pathLeaf === 'premises'
@@ -474,6 +477,7 @@ class Sheaf {
           || $pathLeaf === 'protocol'
           || $pathLeaf === 'example'
           || $pathLeaf === 'exercise'
+          || $pathLeaf === 'table'
           || $pathLeaf === 'diagram'
           )
           echo '</div></div></div>';
@@ -504,6 +508,7 @@ class Sheaf {
         if ($pathLeaf === "text") echo '</span>';
         if ($pathLeaf === "content") echo '</div>';
         if ($pathLeaf === "code") echo '</div></div>';
+        if ($pathLeaf === "table") echo '</div>';
         if ($pathLeaf === "diagram") echo '</div>';
         if ($pathLeaf === "plugin") echo '</div>';
 

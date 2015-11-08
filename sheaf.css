@@ -102,8 +102,8 @@ body { font-family: Times,serif; }
 #sheaf ul { padding-top:0px 0px 0px 5px; margin:8px 0px 8px 0px; }
 #sheaf ul li ul { padding-top:0px 0px 0px 5px; margin:0px 0px 0px 0px; }
 #sheaf ol { margin-left:8px; padding-top:0px 0px 0px 5px; }
-#sheaf  li { text-align:left; position:relative; min-width:200px; padding:0px 0px 0px 0px; }
-#sheaf  code { background-color:#EEEEEE; padding:0px 2px 0px 2px;}
+#sheaf li { text-align:left; position:relative; min-width:200px; padding:0px 0px 0px 0px; }
+#sheaf code { background-color:#EEEEEE; padding:0px 2px 0px 2px;}
 
 #sheaf a { text-decoration:none; color:#AC701E; }
 #sheaf a:hover { text-decoration:underline; color:firebrick; }
@@ -135,13 +135,13 @@ body { font-family: Times,serif; }
 #sheaf .diagram .container { border-spacing:7px; margin:0 auto; }
 #sheaf .diagram .container .box { font-weight:bold; padding:2px 10px 2px 10px; border:1px dashed #444444; text-align:center; }
 
-#sheaf .button { border:0px; margin:8px 8px 0px 8px; padding:0px; }
-#sheaf button { text-align:center; font-family:Verdana,Arial,sans-serif; font-size:10px; color:#555555; cursor:pointer; padding:0px; margin-left:auto; width:100%; }
-
-#sheaf .fig_table { margin:8px 0px 8px 0px; border:1px #CCCCCC solid; }
+#sheaf .fig_table { margin:8px 8px 8px 8px; border:1px #CCCCCC solid; }
 #sheaf .fig_table td { padding:4px 10px 4px 10px; margin:0px 10px 0px 10px; white-space:nowrap; background-color:#EFEFEF; }
 #sheaf .fig_table2 .cell { padding:4px 10px 4px 10px; margin:0px 10px 0px 10px; white-space:nowrap; background-color:#EFEFEF; }
 #sheaf .truthtable td { text-align:center; }
+
+#sheaf .button { border:0px; margin:8px 8px 0px 8px; padding:0px; }
+#sheaf button { text-align:center; font-family:Verdana,Arial,sans-serif; font-size:10px; color:#555555; cursor:pointer; padding:0px; margin-left:auto; width:100%; }
 
 #sheaf .btn { display:inline-block; margin-right:5px; font-size:10px; font-family:Verdana,Arial,Sans-serif; background-color:#CFCFCF; cursor:pointer; }
 #sheaf .btn_verify { display:inline-block; padding:5px; font-size:10px; font-family:Verdana,Arial,Sans-serif; background-color:#CFCFCF; cursor:pointer; }
