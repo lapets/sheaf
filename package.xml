@@ -10,10 +10,10 @@
  <lead>
   <name>A. Lapets</name>
   <user>lapets</user>
-  <email>lapets@bu.edu</email>
+  <email>lapets@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2014-09-01</date>
+ <date>2015-11-09</date>
  <time>00:00:01</time>
  <version>
   <release>0.0.1</release>
@@ -42,10 +42,6 @@ None.
    <pearinstaller>
     <min>1.5.6</min>
    </pearinstaller>
-   <package>
-    <name>uxadt</name>
-    <uri>https://raw.githubusercontent.com/lapets/uxadt/master/PHP/uxadt-0.0.16</uri>
-   </package>
   </required>
  </dependencies>
  <phprelease />
@@ -59,7 +55,7 @@ None.
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2014-09-01</date>
+   <date>2015-11-09</date>
    <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
    <notes>
 None.
