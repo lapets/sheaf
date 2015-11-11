@@ -316,11 +316,11 @@ class Sheaf {
 
         if ($pathLeaf === "paragraph") echo '<div class="paragraph">' . ((array_key_exists('title', $attrs)) ? ('<b>'.$attrs['title'].'.</b> ') : '');
         if ($pathLeaf === "orderedlist") echo '<ol'.((array_key_exists('style', $attrs)) ? (' style="'.$attrs['style'].'"') : '').'>';
-        if ($pathLeaf === "unorderedlist") echo '<ul>';
-        if ($pathLeaf === "text") echo "\n".'<span class="text">';
-        if ($pathLeaf === "content") echo "\n".'<div>';
-        if ($pathLeaf === "code") echo "\n".'<div class="code"><div class="source">';
-        if ($pathLeaf === "plugin") echo "\n".'<div>';
+        if ($pathLeaf === "unorderedlist") echo '<ul class="top">';
+        if ($pathLeaf === "text") echo "\n".'<span class="text top">';
+        if ($pathLeaf === "content") echo "\n".'<div class="top">';
+        if ($pathLeaf === "code") echo "\n".'<div class="code top"><div class="source">';
+        if ($pathLeaf === "plugin") echo "\n".'<div class="top">';
 
       } else { // Handlers for blocks that do not appear at top level.
 
