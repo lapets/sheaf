@@ -31,6 +31,7 @@ function sheaf_hook_math ($s) {
   $s=sheaf::r($s, '^{\\phi(%m)-1}', '<sup>\\phi(%m)-1</sup>');
   $s=sheaf::r($s, '^{\\phi(%m)}', '<sup>\\phi(%m)</sup>');
   $s=sheaf::r($s, '^{\\phi(%m) \cdot %k}', '<sup>\\phi(%m) \cdot %k</sup>');
+  $s=sheaf::r($s, '^{\\varphi(%n)}', '<sup>\\varphi(%n)</sup>');
   $s=sheaf::r($s, '^{%k}', '<sup><i>k</i></sup>');
   $s=sheaf::r($s, '^{%d}', '<sup><i>d</i></sup>');
   $s=sheaf::r($s, '^{%i}', '<sup><i>i</i></sup>');
@@ -41,6 +42,7 @@ function sheaf_hook_math ($s) {
   $s=sheaf::r($s, '^{%e}', '<sup><i>e</i></sup>');
   $s=sheaf::r($s, '^{%n}', '<sup><i>n</i></sup>');
   $s=sheaf::r($s, '^{%m}', '<sup><i>m</i></sup>');
+  $s=sheaf::r($s, '^{%r}', '<sup><i>r</i></sup>');
   $s=sheaf::r($s, '^{%c}', '<sup><i>c</i></sup>');
   $s=sheaf::r($s, '^{%y}', '<sup><i>y</i></sup>');
   $s=sheaf::r($s, '^{1/2}', '<sup>1/2</sup>');
@@ -87,6 +89,7 @@ function sheaf_hook_math ($s) {
   $s=sheaf::r($s, '_{%i}', '<sub><i>i</i></sub>');
   $s=sheaf::r($s, '_{%m}', '<sub><i>m</i></sub>');
   $s=sheaf::r($s, '_{%n}', '<sub><i>n</i></sub>');
+  $s=sheaf::r($s, '_{%r}', '<sub><i>r</i></sub>');
   $s=sheaf::r($s, '_{%N}', '<sub><i>N</i></sub>');
   $s=sheaf::r($s, '_{%i-1}', '<sub><i>i</i>-1</sub>');
   $s=sheaf::r($s, '_{%n-1}', '<sub><i>n</i>-1</sub>');
@@ -96,6 +99,8 @@ function sheaf_hook_math ($s) {
   $s=sheaf::r($s, '_{%j}', '<sub><i>j</i></sub>');
   $s=sheaf::r($s, '\\lfloor', '&lfloor;');
   $s=sheaf::r($s, '\\rfloor', '&rfloor;');
+  $s=sheaf::r($s, '\\lceil', '&lceil;');
+  $s=sheaf::r($s, '\\rceil', '&rceil;');
   $s=sheaf::r($s, '\\emptyset', '&empty;');
   $s=sheaf::r($s, '\\forall', '&forall;');
   $s=sheaf::r($s, '\\exists', '&exist;');
