@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="all" name="robots" />
+    <title>sheaf</title>
+    <link rel="shortcut icon"type="image/x-icon" href="data:image/x-icon;,"><!-- Suppress browser favicon.ico request. -->
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Alex+Brush">
+    <style>
+html, body { height:100%; margin:0; color:#000000; font-family:'Open Sans',sans-serif; }
+body #content { z-index:100; min-height:100%; width:900px; margin:0 auto -90px; }
+body #content #title { margin-bottom:-10px; padding-top:50px; /*text-align:center;*/ color:#AFAFAF; font-family:'Alex Brush',sans-serif; font-size:80px; }
+body #content #description { padding-bottom:40px; font-size:16px; }
+body #content #sheet { margin:0 auto; padding-bottom:40px; color:#000000; background-color:white; }
+body #content #sheet .section { padding-top:20px; font-family:'Open Sans',sans-serif; font-size:16px; }
+body #content #sheet .section h2 { color:#888888; font-family:'Open Sans',sans-serif; font-weight:normal; font-size:28px; }
+body #content #sheet .section ul { list-style:none; padding:8px 0px 8px 0px; margin:0; }
+body #content #sheet .section li { padding-left:1.5em; text-indent:-1em; }
+body #content #sheet .section li:before { content:"4"; color:#888888; font-family:'Webdings'; }
+body #content #sheet .section a { color:firebrick; text-decoration:none; }
+body #content #sheet .section a:hover { text-decoration:underline; }
+body #content #footer_spacer { height:70px; }
+body #footer { width:900px; height:70px; margin:0 auto; padding-top:15px; font-family:'Open Sans',sans-serif; font-size:13px; }
+body #footer hr { border:0px; border-top:1px solid #DFDFDF; }
+body #footer a { color:#000000; text-decoration:none; }
+body #footer a:hover { text-decoration:underline; }
+    </style>
+    <script>
+      var favIcon = "AAABAAEAICAAAAEACACoCAAAFgAAACgAAAAgAAAAQAAAAAEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDAAQEBAAJCQkADAwMAA4ODgAPDw8AEhISABkZGQAdHR0AHx8fACMjIwAkJCQALS0tADAwMAA1NTUAOzs7ADw8PABAQEAAQ0NDAEVFRQBJSUkASkpKAEtLSwBOTk4AUVFRAFZWVgBYWFgAWVlZAFpaWgBbW1sAXl5eAF9fXwBhYWEAZWVlAGZmZgBpaWkAcHBwAHFxcQBycnIAc3NzAHV1dQB2dnYAd3d3AHx8fACDg4MAh4eHAImJiQCLi4sAjY2NAI6OjgCQkJAAlpaWAJiYmACZmZkAm5ubAKCgoAChoaEAo6OjAKenpwCoqKgAqampAKqqqgCrq6sAsrKyALOzswC1tbUAubm5ALy8vAC9vb0Avr6+AMHBwQDFxcUAx8fHAMrKygDMzMwAz8/PANHR0QDU1NQA1tbWANvb2wDc3NwA4ODgAObm5gDo6OgA6enpAOvr6wDs7OwA7e3tAO7u7gDv7+8A8fHxAPLy8gDz8/MA9fX1APb29gD39/cA+fn5APv7+wD+/v4A////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkUxswZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRKTTUmZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZDY6ZGRkZGRkZGRkZFxkZGRkZGRkZGRQPmRkZFpkZGRiZBtXZGRkZGRkZGQAABFQFTJkZA8XSA03M1FEGjJbJCBPQi9kZGRkZGRkGx5VADYcAFhkAEsyCGRkSQIzZCsAWUBMElhkZGRkZGQKPGQhO2QAAGQMHWQAEj1hJwBkVQAsZEEXLWRkZGRkZGIsX0IfZE0AOEYATkYDTTFQEwVkRABTZE0GZGRkZGRkZFs0ThRkZBQqRgAAZCoJQyNkAQdkCw5kYAAiY2RkZGRkZFYlAGFkUgBTRxReZD8pRWRkGAAJPWQQAAAWLlNkZGRkZFQAG2RkIABkZGRkZGRkZGRkXVpkZGRkADRkZGRkZGRkZGFRZGRkABVkZGRkZGRkZGRkZGRkZGQ5AGRkZGRkZGRkZGRkZGRcAFlkZGRkZGRkZGRkZGRkZGQEABlkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGISKGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+      var docHead = document.getElementsByTagName('head')[0];
+      var newLink = document.createElement('link');
+      newLink.rel = 'shortcut icon';
+      newLink.type = 'image/x-icon';
+      newLink.href = 'data:image/png;base64,'+favIcon;
+      docHead.appendChild(newLink);
+    </script>
+    <base target="_parent">
+  </head>
+  <body>
+    <div id="content">
+      <div id="title">sheaf</div>
+      <div id="description">
+        Representation format and web application for storing and rendering lecture notes in mathematics and computer science.
+      </div>
+      <div id="sheet">
+        <div class="section">
+          <h2>Repository</h2>
+            The sheaf library consists of an XML schema for lecture notes in computer science and mathematics, as well as an application for rendering lectures notes as HTML. Several ad hoc plugins are included for rendering mathematical notation and source code snippets. The <a href="http://github.com/lapets/sheaf">official repository</a> is maintained on GitHub.
+        </div>
+      </div><!-- /#sheet -->
+      <div id="footer_spacer"></div>
+    </div><!-- /#content -->
+    <div id="footer">
+      <hr/>
+      <a href="http://www.github.com/lapets/sheaf">Repository</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="mailto:a@lapets.io">Contact</a>
+    </div><!-- /#footer -->
+  </body>
+</html>
