@@ -51,7 +51,7 @@ body { font-family: Times,serif; }
 #sheaf .top { } /* Top-level block (within section or subsection). */
 
 #sheaf .paragraph { margin:12px 0px 12px 0px; }
-#sheaf .text { margin:8px 0px 8px 0px; }
+#sheaf .text { margin:8px 0px 8px 0px; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
 
 #sheaf .inferences { padding:8px 8px 8px 16px; }
 #sheaf .inferences .inference { padding:5px 1px 5px 1px; }
@@ -69,13 +69,15 @@ body { font-family: Times,serif; }
   font-family:serif; font-variant:small-caps; font-size:14px;
 }
 
+#sheaf table { line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
+
 #sheaf .code {
   background-color:#F4F4F4;
   border:1px dashed #AFAFAF;
   font-family:Monospace; font-size:12px;
   margin:8px 8px 8px 8px;
 }
-#sheaf .code .source { margin:-8px 10px -8px 10px; }
+#sheaf .code .source { margin:-8px 10px -8px 10px; line-height:16px; /* Fix for math entities in Chrome on old Windows machines. */ }
 #sheaf .code .source .comment { color:#8A8A8A; font-style:italic; }
 #sheaf .code .source .literal { color:firebrick; font-weight:bold; }
 #sheaf .code .source .keyword { color:blue; font-weight:bold; }
@@ -111,7 +113,7 @@ body { font-family: Times,serif; }
 #sheaf a { text-decoration:none; color:#AC701E; }
 #sheaf a:hover { text-decoration:underline; color:firebrick; }
 
-#sheaf .block { margin: 12px 0px 12px 0px; }
+#sheaf .block { margin: 12px 0px 12px 0px; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
 #sheaf .block_label { font-weight:bold; color:#222222; }
 #sheaf .definition { padding:7px; white-space:normal; }
 #sheaf .fact { padding:7px; white-space:normal; }
