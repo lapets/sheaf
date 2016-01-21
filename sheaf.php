@@ -91,9 +91,10 @@ class Sheaf {
         'section' => 1,
         'subsection' => 1,
         'assignment' => 1,
+        'project' => 1,
         'review' => 1,
         'midterm' => 1,
-        'appendix' => 'A'
+        'appendix' => 'X'
       );
 
     global $tagPath; $tagPath = '';
@@ -140,6 +141,11 @@ class Sheaf {
         $tocHTML .= '  <li>'.$counter['section'].'.'.$counter['subsection'].'.'
                   . ' <a href="#'.$id.'"><b>Assignment #'.$counter['assignment'].': '.$attrs['title'].'</b></a></li>';
       }
+      if ($tagPath == '/sheaf/section/project') {
+        $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
+        $tocHTML .= '  <li>'.$counter['section'].'.'.$counter['subsection'].'.'
+                  . ' <a href="#'.$id.'"><b>Project #'.$counter['project'].': '.$attrs['title'].'</b></a></li>';
+      }
     }}
     if (!function_exists('parse_render_toc_val')) {function parse_render_toc_val($parser, $data) {
       // Do nothing.
@@ -173,6 +179,10 @@ class Sheaf {
       if ($tagPath == '/sheaf/section/assignment') {
         $counter['subsection']++;
         $counter['assignment']++;
+      }
+      if ($tagPath == '/sheaf/section/project') {
+        $counter['subsection']++;
+        $counter['project']++;
       }
       if ($tagPath == '/sheaf/appendix') {
         $tocHTML .= "\n  </ul>\n </li>";
@@ -294,6 +304,17 @@ class Sheaf {
            . $counter['section'].'.'.$counter['subsection'].'.</span> '
            . '<span class="assignment_title">Assignment #'.$counter['assignment'].': '.$attrs['title'].'</span></h3>';
       }
+      if ($tagPath == '/sheaf/section/project') {
+        $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
+        echo '<br/><hr/>'
+           . '<a name="'.$id.'"></a>'
+           . '<a name="project'.$counter['project'].'"></a>'
+           . '<a name="hw'.$counter['project'].'"></a>'
+           . '<div class="project">';
+        echo '<h3 class="linked">'.sheaf::link($id).'<span class="header_numeral">'
+           . $counter['section'].'.'.$counter['subsection'].'.</span> '
+           . '<span class="project_title">Project #'.$counter['project'].': '.$attrs['title'].'</span></h3>';
+      }
 
       // Categorized blocks that appear at top level.
       if ( $pathPrefix === '/sheaf/section'
@@ -326,7 +347,7 @@ class Sheaf {
 
       } else { // Handlers for blocks that do not appear at top level.
 
-        // Assignment/exam instructions, problems, and problem parts.
+        // Assignment/project/exam instructions, problems, and problem parts.
         if ($pathLeaf === "instructions") echo '<div class="instructions">';
         if ($pathLeaf === 'problems') echo '<ol class="problems">';
         if ($pathLeaf === 'problem') echo '<li class="problem">';
@@ -461,6 +482,11 @@ class Sheaf {
         echo "\n".'</div><hr/><br/>';
         $counter['subsection']++;
         $counter['assignment']++;
+      }
+      if ($tagPath == '/sheaf/section/project') {
+        echo "\n".'</div><hr/><br/>';
+        $counter['subsection']++;
+        $counter['project']++;
       }
 
       // Categorized blocks that appear at top level.
