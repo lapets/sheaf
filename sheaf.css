@@ -90,6 +90,13 @@ body { font-family: Times,serif; }
 #sheaf .assignment .problems .problem .part { margin:10px 0px 0px -20px; }
 #sheaf .assignment_title { text-decoration:underline; }
 
+#sheaf .project { }
+#sheaf .project .problems { margin-left:-20px; }
+#sheaf .project .problems .problem { margin:0px 0px 10px 0px; }
+#sheaf .project .problems .problem .parts { margin:10px 0px 0px 0px; list-style-type:lower-alpha; }
+#sheaf .project .problems .problem .part { margin:10px 0px 0px -20px; }
+#sheaf .project_title { text-decoration:underline; }
+
 #sheaf .midterm { }
 #sheaf .midterm .problems { margin-left:-20px; }
 #sheaf .midterm .problems .problem { margin:0px 0px 10px 0px; }
