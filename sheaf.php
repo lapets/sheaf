@@ -248,10 +248,12 @@ class Sheaf {
         echo "\n".'<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>';
         echo "\n".'<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/vs.min.css">';
         echo "\n".'<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>';
+        echo "\n".'<script src="http://d3js.org/d3.v3.min.js"></script>';
+        echo "\n".'<script type="text/javascript" src="'.$sheaf['path'].'protoql.js"></script>';
         echo "\n".'<link rel="stylesheet" href="'.$sheaf['path'].'sheaf.css">';
         echo "\n".'<script type="text/javascript" src="'.$sheaf['path'].'sheaf.js"></script>';
         echo "\n".'</head>';
-        echo "\n".'<body>';
+        echo "\n".'<body onload="protoql.Visualizations($('."'.pql'".'));">';
         echo "\n".'<div class="sheaf" id="sheaf">';
 
         echo $sheaf['message'];
