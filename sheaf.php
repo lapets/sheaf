@@ -139,7 +139,7 @@ class Sheaf {
       if ($tagPath == '/sheaf/section/assignment') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
         $tocHTML .= '  <li>'.$counter['section'].'.'.$counter['subsection'].'.'
-                  . ' <a href="#'.$id.'"><b>Assignment #'.strval0($counter['assignment']).': '.$attrs['title'].'</b></a></li>';
+                  . ' <a href="#'.$id.'"><b>Assignment #'.sheaf::strval0($counter['assignment']).': '.$attrs['title'].'</b></a></li>';
       }
       if ($tagPath == '/sheaf/section/project') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
@@ -298,12 +298,12 @@ class Sheaf {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
         echo '<br/><hr/>'
            . '<a name="'.$id.'"></a>'
-           . '<a name="assignment'.strval0($counter['assignment']).'"></a>'
-           . '<a name="hw'.strval0($counter['assignment']).'"></a>'
+           . '<a name="assignment'.sheaf::strval0($counter['assignment']).'"></a>'
+           . '<a name="hw'.sheaf::strval0($counter['assignment']).'"></a>'
            . '<div class="assignment">';
         echo '<h3 class="linked">'.sheaf::link($id).'<span class="header_numeral">'
            . $counter['section'].'.'.$counter['subsection'].'.</span> '
-           . '<span class="assignment_title">Assignment #'.strval0($counter['assignment']).': '.$attrs['title'].'</span></h3>';
+           . '<span class="assignment_title">Assignment #'.sheaf::strval0($counter['assignment']).': '.$attrs['title'].'</span></h3>';
       }
       if ($tagPath == '/sheaf/section/project') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
