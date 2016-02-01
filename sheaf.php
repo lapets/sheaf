@@ -252,8 +252,10 @@ class Sheaf {
         echo "\n".'<script type="text/javascript" src="'.$sheaf['path'].'protoql.js"></script>';
         echo "\n".'<link rel="stylesheet" href="'.$sheaf['path'].'sheaf.css">';
         echo "\n".'<script type="text/javascript" src="'.$sheaf['path'].'sheaf.js"></script>';
+        echo "\n".'<script>hljs.initHighlightingOnLoad();</script>';
         echo "\n".'</head>';
         echo "\n".'<body onload="protoql.Visualizations($('."'.pql'".'));">';
+        echo "\n".'<body onload="$(\'code\').each(function(){ $(this).html(($(this).html().trim()));});">';
         echo "\n".'<div class="sheaf" id="sheaf">';
 
         echo $sheaf['message'];
