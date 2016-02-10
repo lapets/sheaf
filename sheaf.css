@@ -72,7 +72,7 @@ body { font-family: Times,serif; }
 #sheaf table { line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
 
 #sheaf .code {
-  background-color:#F4F4F4;
+  background-color:#EEEEEE; /* #F4F4F4 */
   border:1px dashed #AFAFAF;
   font-family:Monospace; font-size:12px;
   margin:8px 8px 8px 8px;
@@ -145,7 +145,7 @@ body { font-family: Times,serif; }
 
 #sheaf .diagram { margin:14px; text-align:center; width:100%; font-size:12px; font-family:Arial,Sans-serif; }
 #sheaf .diagram .container { border-spacing:7px; margin:0 auto; }
-#sheaf .diagram .container .box { font-weight:bold; padding:2px 10px 2px 10px; border:1px dashed #444444; text-align:center; }
+#sheaf .diagram .container .box { font-weight:bold; padding:2px 10px 2px 10px; border:1px dashed #444444; text-align:center; line-height:15px; /* Fix for math entities in Chrome on old Windows machines. */ }
 
 #sheaf .fig_table { margin:8px 8px 8px 8px; border:1px #CCCCCC solid; }
 #sheaf .fig_table td { padding:4px 10px 4px 10px; margin:0px 10px 0px 10px; white-space:nowrap; background-color:#EFEFEF; }

@@ -196,8 +196,20 @@
     var Geometry = {};
 
     /***************************************************************************
-    ** Static routines and methods.
+    ** Static routines for vector arithmetic and shape intersections.
     */
+
+    Geometry.sum = (function(v, w) { return {x: v.x + w.x, y: v.y + w.y}; });
+    Geometry.diff = (function(v, w) { return {x: v.x - w.x, y: v.y - w.y}; });
+    Geometry.length = (function(v) { return Math.sqrt(Math.pow(v.x,2) + Math.pow(v.y,2)); });
+    Geometry.scale = (function(s, v) { return {x: s*v.x, y: s*v.y}; });
+    Geometry.middle = (function(v, w) { return Geometry.sum(v,Geometry.scale(0.5,Geometry.diff(w,v))); });
+    Geometry.rotate = (function(v) { return {x:0-v.y, y:v.x}; });
+    Geometry.normalize =
+      (function(v) {
+        var d = Math.sqrt(Math.pow(v.x,2) + Math.pow(v.y,2));
+        return {x: v.x/d, y: v.y/d};
+      });
 
     Geometry.intersects =
       (function(c, d, a, b) {
@@ -231,7 +243,8 @@
       });
 
     Geometry.onEdgeCirc =
-      (function(e, which) {
+      (function(e, which, offset) {
+        offset = (offset == null) ? {x:0, y:0} : offset; // So symmetric edges intersect in different locations.
         var c = e[which];
         var dx = (which == "source" ? -1 : 1)*(e.source.x - e.target.x), 
             dy = (which == "source" ? -1 : 1)*(e.target.y - e.source.y);
@@ -241,9 +254,10 @@
       });
 
     Geometry.onEdgeRect =
-      (function(e, which) {
+      (function(e, which, offset) {
+        offset = (offset == null) ? {x:0, y:0} : offset; // So symmetric edges intersect in different locations.
         var r = Geometry.centeredPaddedRect(e[which]);
-        var a = e.source, b = e.target;
+        var a = Geometry.sum(e.source, offset), b = Geometry.sum(e.target, offset);
         var lines = [
             [r, {x:r.x+r.width,y:r.y}], [{x:r.x,y:r.y+r.height}, {x:r.x+r.width,y:r.y+r.height}],
             [r, {x:r.x,y:r.y+r.height}], [{x:r.x+r.width,y:r.y}, {x:r.x+r.width,y:r.y+r.height}]
@@ -262,11 +276,11 @@
       });
 
     Geometry.onEdge =
-      (function(e, which) {
+      (function(e, which, offset) {
         if (e[which].shape == "rect")
-          return Geometry.onEdgeRect(e, which);
+          return Geometry.onEdgeRect(e, which, offset);
         if (e[which].shape == "circle")
-          return Geometry.onEdgeCirc(e, which);
+          return Geometry.onEdgeCirc(e, which, offset);
       });
 
     Geometry.centeredPaddedRect =
@@ -400,18 +414,25 @@
           .attr("d", function (e) {
             var s = Visualization.geometry.onEdge(e, 'source'), t = Visualization.geometry.onEdge(e, 'target');
             if (Visualization.geometry.inShape(t, e.source) || Visualization.geometry.inShape(s, e.target)) {
-              var es = e.source, et = e.target, 
-                  dx = e.source.x - e.target.x, dy = e.source.y - e.target.y,
-                  d = Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2)),
-                  m = Math.abs(Visualization.geometry.maxRadiusToOutside(es, et)),
-                  kx = (d < 2) ? m + 9 : dx * Math.min(1.3*m, 1.5*(m/(d+1))), ky = (d < 2) ? m + 9 : dy * Math.min(1.3*m, 1.5*(m/(d+1))),
-                  p = {x:es.x + 1.3*ky, y:es.y - kx}, q = {x:et.x - (0.9)*ky, y:et.y - kx},
+              var orient = (e.source == e.target) ? -1 : 1,
+                  es = e.source, et = e.target, 
+                  d = Visualization.geometry.diff(e.source, e.target),
+                  l = Visualization.geometry.length(d),
+                  m = Math.abs(Visualization.geometry.maxRadiusToOutside(e.source, e.target)),
+                  kx = (l < 2) ? m + 9 : d.x * Math.min(1.3*m, 1.5*(m/(l+1))), ky = (l < 2) ? m + 9 : d.y * Math.min(1.3*m, 1.5*(m/(l+1))),
+                  p = {x:es.x + 1.3*ky, y:es.y - kx}, q = {x:et.x + (orient*(0.9)*ky), y:et.y - kx},
                   s = Visualization.geometry.onEdge({source:es, target:p}, 'source'), t = Visualization.geometry.onEdge({source:q, target:et}, 'target');
               var points = [s, p, q, t];
               return lineFunction(points);
             } else if (e.curved == true) {
-              var dx = t.x - s.x, dy = t.y - s.y;
-              return lineFunction([s, {x:s.x+(dx/2)+(dy/5), y:s.y+(dy/2)+(dx/5)}, t]);
+              var d = Visualization.geometry.diff(t, s),
+                  m = Visualization.geometry.middle(s, t),
+                  o = Visualization.geometry.rotate(Visualization.geometry.normalize(d)),
+                  n = Visualization.geometry.scale(16, o),
+                  off = Visualization.geometry.scale(5, o),
+                  s = Visualization.geometry.onEdge(e, 'source', off),
+                  t = Visualization.geometry.onEdge(e, 'target', off);
+              return lineFunction([s, Visualization.geometry.sum(m, n), t]);
             } else {
               return lineFunction([s, t]);
             }
