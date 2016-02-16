@@ -16,128 +16,77 @@
 /********************************************************************
 */
 
-body { font-family: Times,serif; }
+body { font-family:Times,serif; }
 .sheaf { margin: 50px 60px 50px 60px; }
 
 #sheaf .toc { margin:18px 0px 18px 0px; }
-#sheaf .toc ul { padding-top:0px; margin:0px; }
+#sheaf .toc ul { margin:0px; padding-top:0px; }
 #sheaf .toc ul li { margin:0px; padding:0px; }
 
-#sheaf .header_numeral { color:#8A8A8A; }
-#sheaf h2 { margin-top:40px; color:#6A6A6A; white-space:nowrap; }
+#sheaf h2 { margin-top:40px; white-space:nowrap; color:#6A6A6A; }
 #sheaf h3 { padding-top:40px; white-space:nowrap; }
+#sheaf .header_numeral { color:#8A8A8A; }
+#sheaf hr { height:0px; margin:30px 0px 121px 0px; border-top:1px solid #BBBBBB; border-bottom:0px solid #FFFFFF; }
+#sheaf .last_subsection_was_work { margin:-20px 0px 120px 0px; border-color:#FFFFFF; }
 
 #sheaf .linked { position:relative; left:-45px; }
-#sheaf .link-title {
-  color:#9F9F9F; 
-  font-variant:small-caps; font-size:11px; font-weight:bold;
-  display:inline-block;
-  vertical-align:bottom;
-  padding:0px 7px 5px 0px;
-}
-#sheaf .link-block {
-  color:#9F9F9F;
-  font-variant:small-caps; font-size:11px; font-weight:bold;
-  float:left; display:inline-block;
-  position:relative; top:11px;  
-  margin-right:10px;
-}
+#sheaf .link-title { color:#9F9F9F; font-variant:small-caps; font-size:11px; font-weight:bold; display:inline-block; vertical-align:bottom; padding:0px 7px 5px 0px; }
+#sheaf .link-block { color:#9F9F9F; font-variant:small-caps; font-size:11px; font-weight:bold; float:left; display:inline; vertical-align:top; position:relative; top:7px; margin-right:10px; }
 
 #sheaf .section { }
 #sheaf .review { }
+#sheaf .references { }
+#sheaf .references table tr td { padding:5px; }
+#sheaf .references table tr .cite { min-width:20px; vertical-align:top; font-size:12px; }
+#sheaf .references table tr td a { font-family:Courier,Monospace,Sans-serif; font-size:12px; }
 #sheaf .appendix { }
-#sheaf .subsection { }
 
+#sheaf .subsection { }
 #sheaf .top { } /* Top-level block (within section or subsection). */
 
 #sheaf .paragraph { margin:12px 0px 12px 0px; }
 #sheaf .text { margin:8px 0px 8px 0px; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
 
-#sheaf .inferences { padding:8px 8px 8px 16px; }
-#sheaf .inferences .inference { padding:5px 1px 5px 1px; }
-#sheaf .inferences .inference .premises { 
-  border-bottom:1px solid #000000; border-spacing:0; border-collapse:collapse;
-  padding:0px 12px 0px 12px;
-  text-align:center;
-}
-#sheaf .inferences .inference .conclusion { 
-  border:0px; border-spacing:0; border-collapse:collapse;
-  padding:0px 12px 0px 12px;
-  text-align:center;
-}
-#sheaf .inferences .inference  .title {
-  font-family:serif; font-variant:small-caps; font-size:14px;
-}
-
+#sheaf a { text-decoration:none; color:#AC701E; }
+#sheaf a:hover { text-decoration:underline; color:firebrick; }
+#sheaf code { background-color:#EEEEEE; padding:0px 2px 0px 2px;}
+#sheaf ul { padding-top:0px 0px 0px 5px; margin:8px 0px 8px 0px; }
+#sheaf ul li ul { padding-top:0px 0px 0px 5px; margin:0px 0px 0px 0px; }
+#sheaf ol { margin-left:8px; padding-top:0px 0px 0px 5px; }
+#sheaf li { text-align:left; position:relative; min-width:200px; padding:0px 0px 0px 0px; }
 #sheaf table { line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
 
-#sheaf .code {
-  background-color:#EEEEEE; /* #F4F4F4 */
-  border:1px dashed #AFAFAF;
-  font-family:Monospace; font-size:12px;
-  margin:8px 8px 8px 8px;
-}
+#sheaf .inferences { padding:8px 8px 8px 16px; }
+#sheaf .inferences .inference { padding:5px 1px 5px 1px; }
+#sheaf .inferences .inference .premises { border-bottom:1px solid #000000; border-spacing:0; border-collapse:collapse; padding:0px 12px 0px 12px; text-align:center; }
+#sheaf .inferences .inference .conclusion {  border:0px; border-spacing:0; border-collapse:collapse; padding:0px 12px 0px 12px; text-align:center; }
+#sheaf .inferences .inference .title { font-family:serif; font-variant:small-caps; font-size:14px; }
+
+#sheaf .code { margin:8px 8px 8px 8px; padding:5px 0px 5px 0px; /* #F4F4F4 */ border:1px dashed #AFAFAF; font-family:Monospace; font-size:12px; background-color:#F7F7F7; }
 #sheaf .code .source { margin:-8px 10px -8px 10px; line-height:16px; /* Fix for math entities in Chrome on old Windows machines. */ }
 #sheaf .code .source .comment { color:#8A8A8A; font-style:italic; }
 #sheaf .code .source .literal { color:firebrick; font-weight:bold; }
 #sheaf .code .source .keyword { color:blue; font-weight:bold; }
 #sheaf .code .source .builtin { color:purple; font-weight:bold; }
 
-#sheaf .assignment { }
-#sheaf .assignment .problems { margin-left:-20px; }
-#sheaf .assignment .problems .problem { margin:0px 0px 10px 0px; }
-#sheaf .assignment .problems .problem .parts { margin:10px 0px 0px 0px; list-style-type:lower-alpha; }
-#sheaf .assignment .problems .problem .part { margin:10px 0px 0px -20px; }
-#sheaf .assignment_title { text-decoration:underline; }
+#sheaf .midterm { } /* Same level as section, review, references, and appendix. */
+#sheaf .final { } /* Same level as section, review, references, and appendix. */
+#sheaf .assignment { } /* Same level as subsection. */
+#sheaf .project { } /* Same level as subsection. */
+#sheaf .work_separator { height:0px; margin:40px 0px 0px 0px; border-top:1px solid #BBBBBB; border-bottom:0px solid #FFFFFF; }
+#sheaf .work_header { padding-top:10px; }
+#sheaf .work_title { text-decoration:underline; }
+#sheaf .work .problems { margin-left:-20px; }
+#sheaf .work .problems .problem { margin:0px 0px 10px 0px; }
+#sheaf .work .problems .problem .parts { margin:10px 0px 0px 0px; list-style-type:lower-alpha; }
+#sheaf .work .problems .problem .part { margin:10px 0px 0px -20px; }
 
-#sheaf .project { }
-#sheaf .project .problems { margin-left:-20px; }
-#sheaf .project .problems .problem { margin:0px 0px 10px 0px; }
-#sheaf .project .problems .problem .parts { margin:10px 0px 0px 0px; list-style-type:lower-alpha; }
-#sheaf .project .problems .problem .part { margin:10px 0px 0px -20px; }
-#sheaf .project_title { text-decoration:underline; }
-
-#sheaf .midterm { }
-#sheaf .midterm .problems { margin-left:-20px; }
-#sheaf .midterm .problems .problem { margin:0px 0px 10px 0px; }
-#sheaf .midterm .problems .problem .parts { margin:10px 0px 0px 0px; list-style-type:lower-alpha; }
-#sheaf .midterm .problems .problem .part { margin:10px 0px 0px -20px; }
-#sheaf .midterm_title { text-decoration:underline; }
-
-#sheaf .final { }
-#sheaf .final .problems { margin-left:-20px; }
-#sheaf .final .problems .problem { margin:0px 0px 10px 0px; }
-#sheaf .final .problems .problem .parts { margin:10px 0px 0px 0px; list-style-type:lower-alpha; }
-#sheaf .final .problems .problem .part { margin:10px 0px 0px -20px; }
-#sheaf .final_title { text-decoration:underline; }
-
-#sheaf ul { padding-top:0px 0px 0px 5px; margin:8px 0px 8px 0px; }
-#sheaf ul li ul { padding-top:0px 0px 0px 5px; margin:0px 0px 0px 0px; }
-#sheaf ol { margin-left:8px; padding-top:0px 0px 0px 5px; }
-#sheaf li { text-align:left; position:relative; min-width:200px; padding:0px 0px 0px 0px; }
-#sheaf code { background-color:#EEEEEE; padding:0px 2px 0px 2px;}
-
-#sheaf a { text-decoration:none; color:#AC701E; }
-#sheaf a:hover { text-decoration:underline; color:firebrick; }
-
-#sheaf .block { margin: 12px 0px 12px 0px; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
+#sheaf .block { margin: 12px 0px 12px 0px; white-space:nowrap; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
 #sheaf .block_label { font-weight:bold; color:#222222; }
-#sheaf .definition { padding:7px; white-space:normal; }
-#sheaf .fact { padding:7px; white-space:normal; }
-#sheaf .theorem { padding:7px; white-space:normal; }
-#sheaf .conjecture { padding:7px; white-space:normal; }
-#sheaf .algorithm { padding:7px; white-space:normal; }
-#sheaf .protocol { padding:7px; white-space:normal; }
-#sheaf .example { padding:7px; white-space:normal; }
-#sheaf .exercise { padding:7px; white-space:normal; }
-#sheaf .definition_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; } /* #F6F3C8 (more saturated) */
-#sheaf .fact_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; } /*F9F7DC*/
-#sheaf .theorem_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; }
-#sheaf .conjecture_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; }
-#sheaf .algorithm_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; }
-#sheaf .protocol_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; }
-#sheaf .example_required { padding:7px; white-space:normal; background-color:#E1F8E1; border:1px solid #CBEACB; } /* #D7F8D7 (more saturated) */
-#sheaf .exercise_required { padding:7px; white-space:normal; background-color:#E1F8E1; border:1px solid #CBEACB; }
+#sheaf .true { padding:7px; white-space:normal; }
+#sheaf .task { padding:7px; white-space:normal; }
+#sheaf .true_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; } /* #F6F3C8 (more saturated) */ /*F9F7DC*/
+#sheaf .task_required { padding:7px; white-space:normal; background-color:#E1F8E1; border:1px solid #CBEACB; }/* #D7F8D7 (more saturated) */
 
 #sheaf .solution_container { border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:0px 0px -10px 0px; margin:0px 8px 8px 8px; }
 #sheaf .solution_container .solution { background-color:#E6F9F4; border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:8px 8px 8px 8px; }
@@ -153,19 +102,13 @@ body { font-family: Times,serif; }
 #sheaf .truthtable td { text-align:center; }
 
 #sheaf .button { border:0px; margin:8px 8px 0px 8px; padding:0px; }
-#sheaf button { text-align:center; font-family:Verdana,Arial,sans-serif; font-size:10px; color:#555555; cursor:pointer; padding:0px; margin-left:auto; width:100%; }
-
-#sheaf .btn { display:inline-block; margin-right:5px; font-size:10px; font-family:Verdana,Arial,Sans-serif; background-color:#CFCFCF; cursor:pointer; }
-#sheaf .btn_verify { display:inline-block; padding:5px; font-size:10px; font-family:Verdana,Arial,Sans-serif; background-color:#CFCFCF; cursor:pointer; }
-#sheaf .btn_format { display:inline-block; padding:5px; font-size:10px; font-family:Verdana,Arial,Sans-serif; background-color:#CFCFCF; cursor:pointer; }
-#sheaf .btn_selected { background-color:#EFEFEF; cursor:pointer; }
-#sheaf .widget_argument_controls { display:inline-block; font-size:10px; font-family:Verdana,Arial,Sans-serif; float:right; }
+#sheaf button { text-align:center; font-family:Verdana,Arial,Sans-serif; font-size:10px; color:#555555; cursor:pointer; padding:0px; margin-left:auto; width:100%; }
 
 #sheaf .argument       { margin:0px 20px 0px 20px; padding:0px 15px 0px 15px; background-color:#F6F6F6; padding:10px; border:2px solid #FFFFFF; }
 #sheaf .argument:hover { margin:0px 20px 0px 20px; padding:0px 15px 0px 15px; background-color:#F6F6F6; padding:10px; border:2px solid green; } /*D7F8D7*/
 
 .footer { margin:0px; padding:0px; width:100%; text-align:right; border-top:1px solid #DFDFDF; }
-.footer .sheaflink { color:#AFAFAF; font-family:Verdana,Arial,sans-serif; font-size:10px; margin:5px; padding:5px; text-align:right; }
+.footer .sheaflink { color:#AFAFAF; font-family:Verdana,Arial,Sans-serif; font-size:10px; margin:5px; padding:5px; text-align:right; }
 .footer .sheaflink a { color:#777777; text-decoration:none; }
 .footer .sheaflink a:hover { color:#AFAFAF; text-decoration:none; }
 
@@ -178,4 +121,4 @@ body { font-family: Times,serif; }
 .html_frac_numerator { text-align:center; padding-left:2px; padding-right:2px; margin:0px; }
 .html_frac_denominator { text-align:center; padding-left:2px; padding-right:2px; margin:0px; }
 
-/*eof*/
+/* eof */

@@ -17,6 +17,16 @@
 */
 
 $(document).ready(function() {
+  // Render diagrams.
+  protoql.Visualizations($('.pql')); 
+  
+  // Adjust source code styling (in addition to highlight.js styling).
+  $('code').each(function(){
+    $(this).css('background-color','#F7F7F7');
+    $(this).html(($(this).html().trim()));
+  });
+
+  // Hide the solutions.
   $('.solution_toggle').click(function(e) {
     var sol = $(this).parent().next();
     $(this).text((sol.is(':visible')) ? 'show solution' : 'hide solution');

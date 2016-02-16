@@ -1,4 +1,4 @@
-<?php /**************************************************************
+<?php /************************************************************************
 **
 ** sheaf.php
 **
@@ -13,9 +13,8 @@
 
 //namespace sheaf;
 
-/********************************************************************
-** Container class for sheaf data structure and the associated
-** functionality.
+/******************************************************************************
+** Container class for sheaf data structure and the associated functionality.
 */
 
 global $sheaf; $sheaf = null;
@@ -24,16 +23,24 @@ class Sheaf {
 
   // Common constants.
   public static $blocks = array(
-      'definition' => 'Definition',
-      'fact' => 'Fact',
-      'theorem' => 'Theorem',
-      'conjecture' => 'Conjecture',
-      'algorithm' => 'Algorithm',
-      'protocol' => 'Protocol',
-      'example' => 'Example',
-      'exercise' => 'Exercise',
-      'table' => '',
-      'diagram' => ''
+      'true' => array(
+          'definition' => 'Definition',
+          'fact' => 'Fact',
+          'proposition' => 'Proposition',
+          'lemma' => 'Lemma',
+          'theorem' => 'Theorem',
+          'conjecture' => 'Conjecture',
+          'algorithm' => 'Algorithm',
+          'protocol' => 'Protocol'
+        ),
+      'task' => array(
+          'example' => 'Example',
+          'exercise' => 'Exercise'
+        ),
+      'other' => array(
+          'table' => '',
+          'diagram' => ''
+        )
     );
 
   // The configuration.
@@ -58,7 +65,7 @@ class Sheaf {
     $this->sheaf = $sheaf;
   }
 
-  /******************************************************************
+  /****************************************************************************
   ** Public function to render the complete document as HTML.
   */
   public function html() {
@@ -77,9 +84,8 @@ class Sheaf {
     echo "\n"."</html>"."\n"."<!--eof-->";
   }
 
-  /******************************************************************
-  ** XML Parsing and HTML rendering procedure for the table of
-  ** contents.
+  /****************************************************************************
+  ** XML Parsing and HTML rendering procedure for the table of contents.
   */
   private static function parse_render_toc($sheaf, $xml) {
 
@@ -127,6 +133,9 @@ class Sheaf {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : $counter['appendix'];
         $tocHTML .= ' <li>Appendix '.$counter['appendix'].'. <a href="#'.$id.'">'.$attrs['title']."</a>\n  <ul>";
       }
+      if ($tagPath == '/sheaf/references') {
+        $tocHTML .= ' <li><a href="#bib">References</a></li>';
+      }
       if ($tagPath == '/sheaf/section/subsection') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
         $tocHTML .= '  <li>'.$counter['section'].'.'.$counter['subsection'].'.' . ' <a href="#'.$id.'">'.$attrs['title'].'</a></li>';
@@ -155,43 +164,17 @@ class Sheaf {
       global $counter;
       global $tagPath;
 
-      if ($tagPath == '/sheaf')
-        $tocHTML .= '</ul></div>';
-      if ($tagPath == '/sheaf/section') {
-        $tocHTML .= "\n  </ul>\n </li>";
-        $counter['section']++;
-        $counter['subsection'] = 1;
-      }
-      if ($tagPath == '/sheaf/review') {
-        $tocHTML .= "\n  </ul>\n </li>";
-        $counter['review']++;
-      }
-      if ($tagPath == '/sheaf/midterm') {
-        $tocHTML .= "\n  </ul>\n </li>";
-        $counter['midterm']++;
-      }
-      if ($tagPath == '/sheaf/final') {
-        $tocHTML .= "\n  </ul>\n </li>";
-      }
-      if ($tagPath == '/sheaf/section/subsection') {
-        $counter['subsection']++;
-      }
-      if ($tagPath == '/sheaf/section/assignment') {
-        $counter['subsection']++;
-        $counter['assignment']++;
-      }
-      if ($tagPath == '/sheaf/section/project') {
-        $counter['subsection']++;
-        $counter['project']++;
-      }
-      if ($tagPath == '/sheaf/appendix') {
-        $tocHTML .= "\n  </ul>\n </li>";
-        $counter['appendix']++;
-        $counter['subsection'] = 1;
-      }
-      if ($tagPath == '/sheaf/appendix/subsection') {
-        $counter['subsection']++;
-      }
+      if ($tagPath == '/sheaf') { $tocHTML .= '</ul></div>'; }
+      if ($tagPath == '/sheaf/section') { $counter['section']++; $counter['subsection'] = 1; $tocHTML .= "\n  </ul>\n </li>"; }
+      if ($tagPath == '/sheaf/review') { $counter['review']++; $tocHTML .= "\n  </ul>\n </li>"; }
+      if ($tagPath == '/sheaf/midterm') { $counter['midterm']++; $tocHTML .= "\n  </ul>\n </li>"; }
+      if ($tagPath == '/sheaf/final') { $tocHTML .= "\n  </ul>\n </li>"; }
+      if ($tagPath == '/sheaf/section/subsection') { $counter['subsection']++; }
+      if ($tagPath == '/sheaf/section/assignment') { $counter['subsection']++; $counter['assignment']++; }
+      if ($tagPath == '/sheaf/section/project') { $counter['subsection']++; $counter['project']++; }
+      if ($tagPath == '/sheaf/appendix') { $counter['appendix']++; $counter['subsection'] = 1; $tocHTML .= "\n  </ul>\n </li>"; }
+      if ($tagPath == '/sheaf/appendix/subsection') { $counter['subsection']++; }
+      if ($tagPath == '/sheaf/references') { }
 
       $tagPath = substr($tagPath, 0, strlen($tagPath) - strlen($name) - 1);
     }}
@@ -200,9 +183,8 @@ class Sheaf {
     return $tocHTML;
   }
 
-  /******************************************************************
-  ** XML Parsing and HTML rendering procedure for the document
-  ** contents.
+  /****************************************************************************
+  ** XML Parsing and HTML rendering procedure for the document contents.
   */
   private static function parse_render($sheaf, $xml, $tocHTML = "") {
     global $sheaf;
@@ -217,12 +199,14 @@ class Sheaf {
         'project' => 0,
         'review' => 1,
         'midterm' => 1,
+        'reference' => 1,
         'appendix' => 'A'
       );
 
     global $tagPath; $tagPath = '';
+    global $lastSubsectionWasWork; $lastSubsectionWasWork = false;
 
-    /******************************************************************
+    /**************************************************************************
     ** Add XML parsing handler for opening delimiters.
     */
     if (!function_exists('parse_render_lft')) {function parse_render_lft($parser, $name, $attrs) {
@@ -231,6 +215,7 @@ class Sheaf {
       global $hooks;
       global $counter;
       global $tagPath;
+      global $lastSubsectionWasWork;
       global $tocHTML;
       $pathPrefix = $tagPath;
       $tagPath .= '/'.$name;
@@ -254,8 +239,7 @@ class Sheaf {
         echo "\n".'<script type="text/javascript" src="'.$sheaf['path'].'sheaf.js"></script>';
         echo "\n".'<script>hljs.initHighlightingOnLoad();</script>';
         echo "\n".'</head>';
-        echo "\n".'<body onload="protoql.Visualizations($('."'.pql'".'));">';
-        echo "\n".'<body onload="$(\'code\').each(function(){ $(this).html(($(this).html().trim()));});">';
+        echo "\n".'<body>';
         echo "\n".'<div class="sheaf" id="sheaf">';
 
         echo $sheaf['message'];
@@ -265,28 +249,52 @@ class Sheaf {
       // Top-level structural components (sections, subsections, appendices, and special sections).      
       if ($tagPath == '/sheaf/section' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : $counter['section'];
-        echo "\n".'<a name="'.$id.'"></a>'."\n".'<div class="section"><hr style="margin-bottom:120px;"/>';
+        echo "\n".'<a name="'.$id.'"></a>'."\n".'<div class="section"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
         echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">'.$counter['section'].'.</span> '.$attrs['title'].'</h2>';
+        $lastSubsectionWasWork = false;
       }
       if ($tagPath == '/sheaf/review') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('R.'.$counter['review']);
-        echo '<a name="'.$id.'"></a><div class="review"><hr style="margin-bottom:120px;"/>';
+        echo '<a name="'.$id.'"></a><div class="review"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
         echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Review #'.$counter['review'].'.</span> '.$attrs['title'].'</h2>';
+        $lastSubsectionWasWork = false;
       }
       if ($tagPath == '/sheaf/midterm') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('M.'.$counter['midterm']);
-        echo '<a name="'.$id.'"></a><div class="midterm"><hr style="margin-bottom:120px;"/>';
+        echo '<a name="'.$id.'"></a><div class="work midterm"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
         echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Midterm.</span> '.$attrs['title'].'</h2>';
+        $lastSubsectionWasWork = false;
       }
       if ($tagPath == '/sheaf/final') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : 'F';
-        echo '<a name="'.$id.'"></a><div class="final"><hr style="margin-bottom:120px;"/>';
+        echo '<a name="'.$id.'"></a><div class="work final"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
         echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Final.</span> '.$attrs['title'].'</h2>';
+        $lastSubsectionWasWork = false;
       }
       if ($tagPath == '/sheaf/appendix') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : $counter['appendix'];
-        echo '<a name="'.$id.'"></a><div class="appendix"><hr style="margin-bottom:120px;"/>';
+        echo '<a name="'.$id.'"></a><div class="appendix"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
         echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Appendix '.$counter['appendix'].'.</span> '.$attrs['title'].'</h2>';
+        $lastSubsectionWasWork = false;
+      }
+      if ($tagPath == '/sheaf/references') {
+        $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : $counter['appendix'];
+        echo '<a name="bib"></a><div class="references"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
+        echo '<h2 class="linked">'.sheaf::link("bib").'<span class="header_numeral">References</span></h2><table>';
+        $lastSubsectionWasWork = false;
+      }
+      if ($tagPath == '/sheaf/references/reference') {
+        echo '<tr><td class="cite"><a name="'.$attrs['id'].'"></a>['.$counter['reference'].'<span>]</td><td>';
+        if (array_key_exists('author', $attrs)) echo ' '.$attrs['author'].'.';
+        if (array_key_exists('title', $attrs)) echo ' "<b>'.$attrs['title'].'</b>".';
+        if (array_key_exists('book', $attrs)) {
+          echo ' <i>'.$attrs['book'].'</i>';
+          if (array_key_exists('publication', $attrs)) echo ' '.$attrs['publication'];
+          echo '.';
+        }
+        if (array_key_exists('url', $attrs)) echo ' <a href="'.$attrs['url'].'">'.$attrs['url'].'</a>';
+        echo '</td></tr>';
+        $counter['reference']++;
       }
       if ($tagPath == '/sheaf/section/subsection' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
@@ -300,25 +308,25 @@ class Sheaf {
       }
       if ($tagPath == '/sheaf/section/assignment') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
-        echo '<br/><hr/>'
+        echo '<br/><hr class="work_separator"/>'
            . '<a name="'.$id.'"></a>'
            . '<a name="assignment'.sheaf::strval0($counter['assignment']).'"></a>'
            . '<a name="hw'.sheaf::strval0($counter['assignment']).'"></a>'
-           . '<div class="assignment">';
-        echo '<h3 class="linked">'.sheaf::link($id).'<span class="header_numeral">'
+           . '<div class="work assignment">';
+        echo '<h3 class="work_header linked">'.sheaf::link($id).'<span class="header_numeral">'
            . $counter['section'].'.'.$counter['subsection'].'.</span> '
-           . '<span class="assignment_title">Assignment #'.sheaf::strval0($counter['assignment']).': '.$attrs['title'].'</span></h3>';
+           . '<span class="work_title">Assignment #'.sheaf::strval0($counter['assignment']).': '.$attrs['title'].'</span></h3>';
       }
       if ($tagPath == '/sheaf/section/project') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
-        echo '<br/><hr/>'
+        echo '<br/><hr class="work_separator"/>'
            . '<a name="'.$id.'"></a>'
            . '<a name="project'.sheaf::strval0($counter['project']).'"></a>'
            . '<a name="hw'.sheaf::strval0($counter['project']).'"></a>'
-           . '<div class="project">';
-        echo '<h3 class="linked">'.sheaf::link($id).'<span class="header_numeral">'
+           . '<div class="work project">';
+        echo '<h3 class="work_header linked">'.sheaf::link($id).'<span class="header_numeral">'
            . $counter['section'].'.'.$counter['subsection'].'.</span> '
-           . '<span class="project_title">Project #'.sheaf::strval0($counter['project']).': '.$attrs['title'].'</span></h3>';
+           . '<span class="work_title">Project #'.sheaf::strval0($counter['project']).': '.$attrs['title'].'</span></h3>';
       }
 
       // Categorized blocks that appear at top level.
@@ -328,19 +336,21 @@ class Sheaf {
         || $pathPrefix === '/sheaf/section/subsection'
         || $pathPrefix === '/sheaf/appendix/subsection'
          ) {
-        foreach (sheaf::$blocks as $tag => $name) {
-          if ($pathLeaf === $tag) {
-            $id = array_key_exists('id', $attrs) ? $attrs['id'] : '';
-            $classes = $tag.((array_key_exists('required', $attrs) && $attrs['required'] == 'true') ? '_required' : '');
-            echo "\n".'<a name="'.$id.'"></a>'
-               . '<div class="linked block" style="white-space:nowrap;">'
-               . '<div style="display:inline; vertical-align:middle;" class="link-block">[<a href="'.'#'.$id.'">link</a>]&nbsp;&nbsp;</div>'
-               . '<div style="width:100%; display:inline-block;">'
-               . '<div style="width:auto;" class="'.$classes.'">';
-            if (strlen($name) > 0) // Only show label if there is a label.
-              echo '<span class="block_label">'.$name.((array_key_exists('title', $attrs)) ? (' ('.$attrs['title'].')') : '').':</span> ';
-          }
-        } // For each categorized block type.
+        foreach (sheaf::$blocks as $kind => $bs) {
+          foreach ($bs as $tag => $name) {
+            if ($pathLeaf === $tag) {
+              $id = array_key_exists('id', $attrs) ? $attrs['id'] : '';
+              $classes = $tag.' '.$kind.((array_key_exists('required', $attrs) && $attrs['required'] == 'true') ? ('_required') : '');
+              echo "\n".'<a name="'.$id.'"></a>'
+                 . '<div class="linked block">'
+                 . '<div class="link-block">[<a href="'.'#'.$id.'">link</a>]&nbsp;&nbsp;</div>'
+                 . '<div style="width:100%; display:inline-block;">'
+                 . '<div style="width:auto;" class="'.$classes.'">';
+              if (strlen($name) > 0) // Only show label if there is a label.
+                echo '<span class="block_label">'.$name.((array_key_exists('title', $attrs)) ? (' ('.$attrs['title'].')') : '').':</span> ';
+            }
+          } // For each categorized block.
+        } // For each kind of categorized block.
 
         if ($pathLeaf === "paragraph") echo '<div class="paragraph">' . ((array_key_exists('title', $attrs)) ? ('<b>'.$attrs['title'].'.</b> ') : '');
         if ($pathLeaf === "orderedlist") echo '<ol'.((array_key_exists('style', $attrs)) ? (' style="'.$attrs['style'].'"') : '').'>';
@@ -387,7 +397,7 @@ class Sheaf {
       } // Blocks that are not at top level.
     }} // Add XML parsing handler for opening delimiters.
 
-    /******************************************************************
+    /**************************************************************************
     ** Add XML parsing handler for delimited content.
     */
     if (!function_exists('parse_render_val')) { function parse_render_val($parser, $data) {
@@ -399,6 +409,8 @@ class Sheaf {
       // Render the XML delimited content as HTML.
       if ( $pathLeaf === 'definition'
         || $pathLeaf === 'fact'
+        || $pathLeaf === 'proposition'
+        || $pathLeaf === 'lemma'
         || $pathLeaf === 'theorem'
         || $pathLeaf === 'conjecture'
         || $pathLeaf === 'algorithm'
@@ -438,7 +450,7 @@ class Sheaf {
       }
     }} // Add XML parsing handler for delimited content.
 
-    /******************************************************************
+    /**************************************************************************
     ** Add XML parsing handler for terminating delimiters.
     */
     if (!function_exists('parse_render_rgt')) {function parse_render_rgt($parser, $name) {
@@ -446,6 +458,7 @@ class Sheaf {
       global $hooks;
       global $counter;
       global $tagPath;
+      global $lastSubsectionWasWork;
       $pathPrefix = sheaf::pathPrefix($tagPath);
       $pathLeaf = sheaf::pathLeaf($tagPath);
 
@@ -455,44 +468,29 @@ class Sheaf {
       array_pop($hooks);
 
       // Render the XML as HTML.
-      if ($tagPath == '/sheaf')
+      if ($tagPath == '/sheaf') {
         echo "\n".'</div><div class="footer"><div class="sheaflink">represented and rendered using <a href="http://sheaf.io">sheaf</a></div></div></body>';
+      }
       if ($tagPath == '/sheaf/section' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         echo "\n".'</div>';
         $counter['section']++;
         $counter['subsection'] = 1;
       }
-      if ($tagPath == '/sheaf/review') {
-        echo "\n".'</div>';
-        $counter['review']++;
-      }
-      if ($tagPath == '/sheaf/midterm') {
-        echo "\n".'</div>';
-        $counter['midterm']++;
-      }
-      if ($tagPath == '/sheaf/final')
-        echo "\n".'</div>';
-      if ($tagPath == '/sheaf/appendix') {
-        echo '</div>';
-        $counter['appendix']++;
-        $counter['subsection'] = 1;
-      }
+      if ($tagPath == '/sheaf/review') { $counter['review']++; echo "\n".'</div>'; }
+      if ($tagPath == '/sheaf/midterm') { $counter['midterm']++; echo "\n".'</div>'; }
+      if ($tagPath == '/sheaf/final') { echo "\n".'</div>'; }
+      if ($tagPath == '/sheaf/appendix') { $counter['appendix']++; $counter['subsection'] = 1; echo '</div>'; }
+      if ($tagPath == '/sheaf/references') { echo '</table></div>'; }
+      if ($tagPath == '/sheaf/references/reference') { }
       if ($tagPath == '/sheaf/section/subsection' || $tagPath == '/sheaf/appendix/subsection') {
         if (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false') {
           echo '</div>';
           $counter['subsection']++;
+          $lastSubsectionWasWork = false;
         }
       }
-      if ($tagPath == '/sheaf/section/assignment') {
-        echo "\n".'</div><hr/><br/>';
-        $counter['subsection']++;
-        $counter['assignment']++;
-      }
-      if ($tagPath == '/sheaf/section/project') {
-        echo "\n".'</div><hr/><br/>';
-        $counter['subsection']++;
-        $counter['project']++;
-      }
+      if ($tagPath == '/sheaf/section/assignment') { $counter['subsection']++; $counter['assignment']++; echo "\n".'</div><hr class="work_separator"/><br/>'; $lastSubsectionWasWork = true; }
+      if ($tagPath == '/sheaf/section/project') { $counter['subsection']++; $counter['project']++; echo "\n".'</div><hr class="work_separator"/><br/>'; $lastSubsectionWasWork = true; }
 
       // Categorized blocks that appear at top level.
       if ( $pathPrefix === '/sheaf/section'
@@ -504,6 +502,8 @@ class Sheaf {
 
         if ( $pathLeaf === 'definition'
           || $pathLeaf === 'fact'
+          || $pathLeaf === 'proposition'
+          || $pathLeaf === 'lemma'
           || $pathLeaf === 'theorem'
           || $pathLeaf === 'conjecture'
           || $pathLeaf === 'algorithm'
@@ -561,7 +561,7 @@ class Sheaf {
     return null;
   }
 
-  /******************************************************************
+    /****************************************************************************
   ** Functions for defining and invoking XML parsers.
   */
 
@@ -586,7 +586,7 @@ class Sheaf {
     xml_parser_free($xml_parser);
   }
 
-  /******************************************************************
+  /****************************************************************************
   ** Other utility functions.
   */
 
