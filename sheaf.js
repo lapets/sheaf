@@ -1,10 +1,9 @@
-/********************************************************************
+/******************************************************************************
 **
 ** sheaf.js
 **
-**   A library that supports the representation and automated
-**   rendering of lecture notes for mathematics and computer
-**   science courses.
+**   A library that supports the representation and automated rendering of
+**   lecture notes for mathematics and computer science courses.
 **
 **   Web:     sheaf.io
 **   Version: 0.0.1.0
@@ -13,7 +12,7 @@
 **   material XML files as HTML webpages.
 */
 
-/********************************************************************
+/******************************************************************************
 */
 
 $(document).ready(function() {
@@ -31,6 +30,18 @@ $(document).ready(function() {
     var sol = $(this).parent().next();
     $(this).text((sol.is(':visible')) ? 'show solution' : 'hide solution');
     sol.slideToggle();
+  });
+
+  // Update links to references with indices.
+  var nameToBibIndex = {};
+  $('.cite').each(function() {
+    var name = $(this)[0].children[0].name, index = $(this)[0].innerText.slice(1,-1);
+    nameToBibIndex[name] = index;
+  });
+  $('a').each(function() {
+    var name = $(this)[0].attributes[0].nodeValue.slice(1);
+    if (nameToBibIndex[name] != null && $(this)[0].childNodes[0].data == '#')
+      $(this)[0].childNodes[0].data = nameToBibIndex[name];
   });
 })
 

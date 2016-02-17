@@ -284,7 +284,7 @@ class Sheaf {
         $lastSubsectionWasWork = false;
       }
       if ($tagPath == '/sheaf/references/reference') {
-        echo '<tr><td class="cite"><a name="'.$attrs['id'].'"></a>['.$counter['reference'].'<span>]</td><td>';
+        echo '<tr><td class="cite"><a name="'.$attrs['id'].'"></a>['.$counter['reference'].']</td><td>';
         if (array_key_exists('author', $attrs)) echo ' '.$attrs['author'].'.';
         if (array_key_exists('title', $attrs)) echo ' "<b>'.$attrs['title'].'</b>".';
         if (array_key_exists('book', $attrs)) {
