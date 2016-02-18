@@ -2,9 +2,8 @@
 ** 
 ** protoql.js
 **
-** An embedded language for rapid assembly, querying, and
-** interactive visual rendering of common, abstract
-**  mathematical structures.
+** An embedded language for rapid assembly, querying, and interactive visual
+** rendering of common, abstract mathematical structures.
 **
 **   Web:     protoql.org
 **   Version: 0.0.2.0
@@ -21,7 +20,7 @@
 
   protoql.Notation = (function(Visualization) {
   
-    var Notation = {};
+    var V = Visualization, Notation = {};
 
     /***************************************************************************
     ** Static routines and methods.
@@ -31,10 +30,10 @@
       (function(raw) {
         raw = raw.trim();
         if (raw.length > 0 && raw.charAt(0) == "!") {
-          Visualization.interaction = {'zoom':false, 'pan':false, 'drag':false, 'edit':false};
+          V.interaction = {'zoom':false, 'pan':false, 'drag':false, 'edit':false};
           return raw.substr(1);
         } else if (raw.length > 0 && raw.charAt(0) == "#") {
-          Visualization.interaction = {'zoom':true, 'pan':true, 'drag':true, 'edit':true};
+          V.interaction = {'zoom':true, 'pan':true, 'drag':true, 'edit':true};
           return raw.substr(1);
         } else
           return raw;
@@ -135,12 +134,12 @@
         var rows = d.nodes.length;
         var cols = 0; for (var i = 0; i < d.nodes.length; i++) cols = Math.max(cols, d.nodes[i].length);
 
-        Visualization.layout.grid.width = Math.floor(Visualization.dimensions.width/cols);
-        Visualization.layout.grid.height = Math.floor(Visualization.dimensions.height/rows);
-        //var x = d3.scale.ordinal().domain(d3.range(cols)).rangePoints([0, Visualization.dimensions.width], 1);
-        //var y = d3.scale.ordinal().domain(d3.range(rows)).rangePoints([0, Visualization.dimensions.height], 1);
+        V.layout.grid.width = Math.floor(V.dimensions.width/cols);
+        V.layout.grid.height = Math.floor(V.dimensions.height/rows);
+        //var x = d3.scale.ordinal().domain(d3.range(cols)).rangePoints([0, V.dimensions.width], 1);
+        //var y = d3.scale.ordinal().domain(d3.range(rows)).rangePoints([0, V.dimensions.height], 1);
         var c = d3.scale.category20().domain(d3.range(7));
-        Visualization.data.nodes = [];
+        V.data.nodes = [];
         for (var row = 0; row < d.nodes.length; row++) {
           for (var col = 0; col < d.nodes[row].length; col++) {
             if (d.nodes[row][col] != null) {
@@ -149,13 +148,14 @@
               var shape = (typeof d.nodes[row][col] === "string") ? "circle" : "rect";
               var node = {
                   color: c(Math.floor(Math.random()*7)), shape: shape, text: t, 
-                  rx: 5, ry: 5, offx: 0, offy: 0, x: Visualization.layout.grid.width*col, y: Visualization.layout.grid.height*row
+                  rx: 5, ry: 5, offx: 0, offy: 0, x: V.layout.grid.width*col, y: V.layout.grid.height*row
                 };
               d.nodes[row][col] = node;
-              Visualization.data.nodes.push(node);
+              V.data.nodes.push(node);
               if (deriveLinks) {
                 for (var i = 0; i < es.length; i++) {
-                  var e = es[i];
+                  var e = es[i].split(":")[0],
+                      lbl = (es[i].split(":").length > 0) ? es[i].split(":")[1] : null;
                   var tr = row, tc = col;
                   for (var j = 0; j < e.length; j++) {
                     if (e[j] == "u") tr -= 1;
@@ -164,16 +164,19 @@
                     else if (e[j] == "r") tc += 1;
                     else if (e[j] == "s") /* Self-link; nothing. */;
                   }
-                  d.links.push([[row,col], [tr,tc]]);
+                  d.links.push([[row,col], [tr,tc]].concat((lbl != null) ? [lbl] : []));
                 }
               }
             }
           }
         }
-        Visualization.data.links = [];
+        V.data.links = [];
         for (var i = 0; i < d.links.length; i++) {
-          var s = d.links[i][0], t = d.links[i][1];
-          Visualization.data.links.push({source:d.nodes[s[0]][s[1]], target:d.nodes[t[0]][t[1]], curved:false});
+          var s = d.links[i][0], t = d.links[i][1],
+              e = {source:d.nodes[s[0]][s[1]], target:d.nodes[t[0]][t[1]], curved:false};
+          if (d.links[i].length == 3)
+            e.label = d.links[i][2];
+          V.data.links.push(e);
         }
 
         return true;
@@ -192,8 +195,8 @@
   */
 
   protoql.Geometry = (function(Visualization) {
-  
-    var Geometry = {};
+
+    var V = Visualization, Geometry = {};
 
     /***************************************************************************
     ** Static routines for vector arithmetic and shape intersections.
@@ -209,6 +212,17 @@
       (function(v) {
         var d = Math.sqrt(Math.pow(v.x,2) + Math.pow(v.y,2));
         return {x: v.x/d, y: v.y/d};
+      });
+    Geometry.orth =
+      (function(s, t) {
+        return Geometry.rotate(Geometry.normalize(Geometry.diff(t, s)));
+      });
+    Geometry.offpath =
+      (function(s, t, a) {
+        var r = Geometry.sum(Geometry.middle(s, t), Geometry.scale(a, Geometry.orth(s, t)));
+        if(isNaN(r.x) || isNaN(r.y))
+          return Geometry.middle(s, t);
+        return r;
       });
 
     Geometry.intersects =
@@ -286,10 +300,10 @@
     Geometry.centeredPaddedRect =
       (function(node) {
         var rect = {};
-        rect.x = node.x - (node.width + Visualization.dimensions.padding) / 2;
-        rect.y = node.y - (node.height + Visualization.dimensions.padding) / 2;
-        rect.width = node.width + Visualization.dimensions.padding;
-        rect.height = node.height + Visualization.dimensions.padding;
+        rect.x = node.x - (node.width + V.dimensions.padding) / 2;
+        rect.y = node.y - (node.height + V.dimensions.padding) / 2;
+        rect.width = node.width + V.dimensions.padding;
+        rect.height = node.height + V.dimensions.padding;
         return rect;
       });
 
@@ -333,7 +347,7 @@
       val = obj.html();
     }
 
-    var Visualization = {};
+    var Visualization = {}, V = Visualization;
 
     /***************************************************************************
     ** Data fields and properties.
@@ -344,6 +358,8 @@
     Visualization.val = val;
     Visualization.svg = null;
     Visualization.vis = null;
+    Visualization.zoom = d3.behavior.zoom();
+    Visualization.zoompan = {translate:{x:0, y:0}, scale:1};
     Visualization.built = false;
     Visualization.force = null;
     Visualization.data = {nodes: null, links: null, groups: null};
@@ -352,13 +368,13 @@
     Visualization.dimensions = {width: null, height: null, padding: null};
     Visualization.layout = {grid: {width: null, height: null}};
     Visualization.interaction = {zoom:true, pan:true, drag:true, edit:false};
-    Visualization.geometry = protoql.Geometry(Visualization);
-    Visualization.notation = protoql.Notation(Visualization);
+    var G = Visualization.geometry = protoql.Geometry(Visualization);
+    var N = Visualization.notation = protoql.Notation(Visualization);
 
     /***************************************************************************
     ** Routines and methods.
     */
-
+    
     var lineFunction = 
       d3.svg
         .line()
@@ -397,45 +413,47 @@
     var alignment =
       (function(alpha) {
         return function(d) {
-          d.cx = Math.floor(d.x - (d.x % Visualization.layout.grid.width)+(Visualization.layout.grid.width*0.5));
-          d.cy = Math.floor(d.y - (d.y % Visualization.layout.grid.height)+(Visualization.layout.grid.height*0.5));
-          d.y += (d.cy - d.y) * alpha;
+          d.cx = Math.floor(d.x - (d.x % V.layout.grid.width)+(V.layout.grid.width*0.5));
           d.x += (d.cx - d.x) * alpha;
+          d.cy = Math.floor(d.y - (d.y % V.layout.grid.height)+(V.layout.grid.height*0.5));
+          d.y += (d.cy - d.y) * alpha;
         };
       });
 
     var tick =
-      (function(e) {        
-        Visualization.nodesEnter
+      (function(e) {
+        V.nodesEnter
           .each(alignment(0.8 * e.alpha))
           //.each(collision(.5))
           .attr("transform", function (d) { return "translate("+(d.x + d.offx)+","+(d.y + d.offy)+")"; });
-        Visualization.linksEnter
+        V.linksEnter
           .attr("d", function (e) {
-            var s = Visualization.geometry.onEdge(e, 'source'), t = Visualization.geometry.onEdge(e, 'target');
-            if (Visualization.geometry.inShape(t, e.source) || Visualization.geometry.inShape(s, e.target)) {
+            var s = G.onEdge(e, 'source'), t = G.onEdge(e, 'target'), 
+                points = null, lbl = [e.source, e.target, 15];
+            if (G.inShape(t, e.source) || G.inShape(s, e.target)) {
               var orient = (e.source == e.target) ? -1 : 1,
                   es = e.source, et = e.target, 
-                  d = Visualization.geometry.diff(e.source, e.target),
-                  l = Visualization.geometry.length(d),
-                  m = Math.abs(Visualization.geometry.maxRadiusToOutside(e.source, e.target)),
+                  d = G.diff(e.source, e.target),
+                  l = G.length(d),
+                  m = Math.abs(G.maxRadiusToOutside(e.source, e.target)),
                   kx = (l < 2) ? m + 9 : d.x * Math.min(1.3*m, 1.5*(m/(l+1))), ky = (l < 2) ? m + 9 : d.y * Math.min(1.3*m, 1.5*(m/(l+1))),
                   p = {x:es.x + 1.3*ky, y:es.y - kx}, q = {x:et.x + (orient*(0.9)*ky), y:et.y - kx},
-                  s = Visualization.geometry.onEdge({source:es, target:p}, 'source'), t = Visualization.geometry.onEdge({source:q, target:et}, 'target');
-              var points = [s, p, q, t];
-              return lineFunction(points);
+                  s = G.onEdge({source:es, target:p}, 'source'), t = G.onEdge({source:q, target:et}, 'target');
+              points = [s, p, q, t];
+              lbl = [p,q,10];
             } else if (e.curved == true) {
-              var d = Visualization.geometry.diff(t, s),
-                  m = Visualization.geometry.middle(s, t),
-                  o = Visualization.geometry.rotate(Visualization.geometry.normalize(d)),
-                  n = Visualization.geometry.scale(16, o),
-                  off = Visualization.geometry.scale(5, o),
-                  s = Visualization.geometry.onEdge(e, 'source', off),
-                  t = Visualization.geometry.onEdge(e, 'target', off);
-              return lineFunction([s, Visualization.geometry.sum(m, n), t]);
+              var off = G.scale(5, G.orth(s, t)), s = G.onEdge(e, 'source', off), t = G.onEdge(e, 'target', off);
+              points = [s, G.offpath(s, t, 5), t];
             } else {
-              return lineFunction([s, t]);
+              points = [s, t];
             }
+
+            // Position the edge label.
+            var t = V.zoompan.translate, s = V.zoompan.scale,
+                o = G.sum(G.offpath(G.scale(s, lbl[0]), G.scale(s, lbl[1]), lbl[2]*s), t);
+            e.labelText.attr("transform", function (d) { return "translate("+o.x+","+o.y+") scale(" + s + ")"; });
+
+            return lineFunction(points);
           });
       });
 
@@ -466,111 +484,137 @@
         }
       });
 
+    Visualization.height =
+      // Public method.
+      (function() {
+        return V.dimensions.height;
+      });
+
     Visualization.build =
       // Public method.
       (function(value) {
         var raw = null, data = null;
-        if (Visualization.obj instanceof jQuery) {
+        if (V.obj instanceof jQuery) {
           raw = (value != null) ? value : obj.html();
           obj.html("");
-          Visualization.dimensions = {width:Visualization.obj.width(), height:Visualization.obj.height(), padding:10};
+          if (V.dimensions.width == null || V.dimensions.height == null)
+            V.dimensions = {width:V.obj.width(), height:V.obj.height(), padding:10};
         } else {
           raw = (value != null) ? value : obj.innerHTML;
           obj.innerHTML = "";
-          Visualization.dimensions = {width:Visualization.obj.clientWidth, height:Visualization.obj.clientHeight, padding:10};
+          if (V.dimensions.width == null || V.dimensions.height == null)
+            V.dimensions = {width:V.obj.clientWidth, height:V.obj.clientHeight, padding:10};
         }
-        if (Visualization.dimensions.width == null || isNaN(Visualization.dimensions.width) || Visualization.dimensions.width == 0)
-          Visualization.dimensions.width = 600;
-        if (Visualization.dimensions.height == null || isNaN(Visualization.dimensions.height) || Visualization.dimensions.height == 0)
-          Visualization.dimensions.height = 300;
 
-        if (Visualization.notation.relation(raw)) {}
-        else if (Visualization.notation.graph(raw)) {}
-        else if (Visualization.notation.table(raw)) {}
+        if (V.dimensions.width == null || isNaN(V.dimensions.width) || V.dimensions.width == 0)
+          V.dimensions.width = 600;
+        if (V.dimensions.height == null || isNaN(V.dimensions.height) || V.dimensions.height == 0)
+          V.dimensions.height = 300;
+
+        if (V.notation.relation(raw)) {}
+        else if (V.notation.graph(raw)) {}
+        else if (V.notation.table(raw)) {}
         else {
           console.log("Representation not recognized.");
           return;
         }
 
-        symmetricLinks(Visualization.data.links); // Mark symmetric pairs of links.
-        Visualization.force = 
+        symmetricLinks(V.data.links); // Mark symmetric pairs of links.
+        V.force = 
           d3.layout.force()
-            .nodes(Visualization.data.nodes)
-            //.links(Visualization.data.links) // Disabled to avoid inadvertent clustering after building.
-            .size([Visualization.dimensions.width, Visualization.dimensions.height])
+            .nodes(V.data.nodes)
+            //.links(V.data.links) // Disabled to avoid inadvertent clustering after building.
+            .size([V.dimensions.width, V.dimensions.height])
             .gravity(0).charge(0).linkStrength(0)
             .on("tick", tick)
             .start()
           ;
-        if (Visualization.svg != null)
-          Visualization.svg.remove();
-        Visualization.svg = 
+        if (V.svg != null)
+          V.svg.remove();
+        V.svg = 
           d3.select('#' + id)
             .append("svg")
-              .attr("width", Visualization.dimensions.width).attr("height", Visualization.dimensions.height)
+              .attr("width", V.dimensions.width).attr("height", V.dimensions.height)
             ;
 
         // If editing of the diagram notation is enabled.
-        if (Visualization.interaction.edit)
-          Visualization.console =
+        if (V.interaction.edit) {
+          V.console =
             d3.select('#' + id)
               .append("textarea")
-                .attr("style", "width:98%").attr("rows","4")
+                .attr("rows","4").attr("style", "width:"+(V.dimensions.width-6)+"px; margin:0px;")
                 .property("value", (raw.trim().charAt(0) == "#") ? raw.trim().substr(1) : raw.trim())
-                .each(function() { Visualization.txt = this; })
+                .each(function() { V.txt = this; })
               ;
+          document.getElementById(id).style.padding = '0px';
+          document.getElementById(id).style.height = 'auto';
+        }
 
-        var canvas = Visualization.svg
-          .append('rect')
-            .attr({'width':'100%', 'height':'100%'})
-            .attr('fill-opacity', '0')//.attr('fill', 'white')
-          ;
-        if (Visualization.interaction.zoom)
+        var canvas = V.svg.append('rect').attr({'width':'100%', 'height':'100%'}).attr('fill-opacity', '0');
+        if (V.interaction.zoom)
           canvas.call(
-              d3.behavior.zoom()
-                .on("zoom", function() { Visualization.vis.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")"); })
+              V.zoom
+                .on("zoom", function() {
+                  var tr = d3.event.translate, sc = d3.event.scale;
+                  V.zoompan = {translate:{x:tr[0], y:tr[1]},scale:sc};
+                  V.vis.attr("transform", "translate(" + tr + ")" + " scale(" + sc + ")");
+                  V.force.resume();
+                })
             )
           .on("dblclick.zoom", function() {
-              if (Visualization.txt != null)
-                Visualization.build(Visualization.txt.value);
-              Visualization.vis.attr('transform', 'translate(0,0) scale(1)');
+              if (V.txt != null)
+                V.build(V.txt.value);
+              var edgeFade = 20, panZoom = 200;
+              V.linksEnter.each(function(e) { e.labelText.transition().duration(edgeFade).attr("opacity", 0); });
+              setTimeout(function() { // Wait for edges to fade out.
+                V.vis.transition().duration(panZoom).attr('transform', 'translate(0,0) scale(1)');
+                V.zoom.translate([0,0]).scale(1);
+                V.zoompan = {translate:{x:0, y:0},scale:1};
+                setTimeout(function() {V.linksEnter.each(function(e) {e.labelText.transition().duration(edgeFade).attr("opacity", 1);})}, panZoom);
+              }, edgeFade);
             })
           ;
-        Visualization.vis =
-          Visualization.svg
+        V.vis =
+          V.svg
             .append('g')//.attr('transform', 'translate(250,250) scale(0.3)')
             ;
-        Visualization.svg
+        V.svg
           .append('svg:defs')
           .append('svg:marker')
-            .attr('id', 'end-arrow-' + Visualization.divId) // Use separate namespaces for each diagram's arrow ends.
-            .attr('viewBox', '0 -5 10 10')
-            .attr('refX', 8)
-            .attr('markerWidth', 8).attr('markerHeight', 8)
-            .attr('orient', 'auto')
+            .attr('id', 'end-arrow-' + V.divId) // Use separate namespaces for each diagram's arrow ends.
+            .attr('viewBox', '0 -5 10 10').attr('refX', 8)
+            .attr('markerWidth', 8).attr('markerHeight', 8).attr('orient', 'auto')
           .append('svg:path')
-            .attr('d', 'M0,-5L10,0L0,5L2,0')
-            //.attr('stroke-width', '1px')
-            .attr('fill', '#000000')
+            .attr('d', 'M0,-5L10,0L0,5L2,0')/*.attr('stroke-width', '1px')*/.attr('fill', '#000000')
           ;
-        Visualization.linksEnter = 
-          Visualization.vis.selectAll(".link")
-            .data(Visualization.data.links).enter()
+        V.linksEnter = 
+          V.vis.selectAll(".link")
+            .data(V.data.links).enter()
             .append("path").attr("class", "link")
               .style("stroke", "black")
               .style("fill", "none")
-              //.style("marker-end", function(l) { return 'url(' + window.location.href + '#end-arrow-' + Visualization.divId + ')'; })
-              .style("marker-end", function(l) { return 'url(#end-arrow-' + Visualization.divId + ')'; })
+              //.style("marker-end", function(l) { return 'url(' + window.location.href + '#end-arrow-' + V.divId + ')'; })
+              .style("marker-end", function(l) { return 'url(#end-arrow-' + V.divId + ')'; })
+            .each(function(e) { // Add edge labels.
+              e.labelText = 
+                V.svg
+                  .append("text")
+                    .text(function () { return e.label; })
+                    .attr("text-anchor", "middle")
+                    .attr("font-size", "12px")
+                    .style("cursor", "all-scroll")
+                ;
+            })
             ;
-        Visualization.nodesEnter = 
-          Visualization.vis.selectAll(".node")
-            .data(Visualization.data.nodes).enter()
+        V.nodesEnter = 
+          V.vis.selectAll(".node")
+            .data(V.data.nodes).enter()
             .append("g")
               .attr("x", function(d) { return d.cx; })
               .attr("y", function(d) { return d.cy; })
-              .call((Visualization.interaction.drag ? Visualization.force.drag : function(){}))
+              .call((V.interaction.drag ? V.force.drag : function(){}))
             ;
-        Visualization.nodesEnter.filter(function (d) {return d.shape == "rect";})
+        V.nodesEnter.filter(function (d) {return d.shape == "rect";})
           .append("rect")
             .attr("class", "node_rect")
             .attr("rx", function(d) { return d.rx; })
@@ -582,7 +626,7 @@
             .style("opacity", 0.8)
             .style("cursor", "all-scroll")
           ;
-        Visualization.nodesEnter.filter(function (d) {return d.shape == "circle";})
+        V.nodesEnter.filter(function (d) {return d.shape == "circle";})
           .append("circle")
             .attr("class", "node_circle")
             .attr("r", function(d) { return d.r; })
@@ -591,7 +635,7 @@
             .style("opacity", 0.8)
             .style("cursor", "all-scroll")
           ;
-        Visualization.nodesEnter
+        V.nodesEnter
           .append("text")
             .text(function (d) { d.textElt = d3.select(this); return d.text; })
             .each(textToSpans)
@@ -604,19 +648,19 @@
                 d.height = Math.max(19, bbox.height);
               })
           ;
-        Visualization.vis.selectAll(".node_rect")
-          .attr("x", function(d) { return -0.5 * (d.width + Visualization.dimensions.padding); })
-          .attr("y", function(d) { return -0.5 * Visualization.dimensions.padding; })
-          .attr("width", function(d) { return d.width + Visualization.dimensions.padding; })
-          .attr("height", function(d) { return d.height + Visualization.dimensions.padding; })
+        V.vis.selectAll(".node_rect")
+          .attr("x", function(d) { return -0.5 * (d.width + V.dimensions.padding); })
+          .attr("y", function(d) { return -0.5 * V.dimensions.padding; })
+          .attr("width", function(d) { return d.width + V.dimensions.padding; })
+          .attr("height", function(d) { return d.height + V.dimensions.padding; })
           .each(function(d) { d.offy = ((-1) * (d.height/2)); })
         ;
-        Visualization.vis.selectAll(".node_circle")
+        V.vis.selectAll(".node_circle")
           .attr("cy", function(d) { return 0.5*this.parentNode.getBBox().height; })
-          .attr("r", function(d) { var bbox = this.parentNode.getBBox(); d.r = Visualization.dimensions.padding-3+((Math.max(bbox.width, bbox.height))/2); return d.r; })
+          .attr("r", function(d) { var bbox = this.parentNode.getBBox(); d.r = V.dimensions.padding-3+((Math.max(bbox.width, bbox.height))/2); return d.r; })
           .each(function(d) { d.offy = ((-1) * (d.height/2)); })
           ;
-        Visualization.built = true;
+        V.built = true;
       });
 
     /***************************************************************************
