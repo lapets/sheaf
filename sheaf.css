@@ -88,6 +88,7 @@ body { font-family:Times,serif; }
 #sheaf .true_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; } /* #F6F3C8 (more saturated) */ /*F9F7DC*/
 #sheaf .task_required { padding:7px; white-space:normal; background-color:#E1F8E1; border:1px solid #CBEACB; }/* #D7F8D7 (more saturated) */
 
+#sheaf .solution { line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
 #sheaf .solution_container { border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:0px 0px -10px 0px; margin:0px 8px 8px 8px; }
 #sheaf .solution_container .solution { background-color:#E6F9F4; border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:8px 8px 8px 8px; }
 #sheaf .solution_spacer { margin-bottom:4px; }
