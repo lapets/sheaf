@@ -82,6 +82,7 @@ body { font-family:Times,serif; }
 #sheaf .work .problems .problem .part { margin:10px 0px 0px -20px; }
 
 #sheaf .block { margin: 12px 0px 12px 0px; white-space:nowrap; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
+#sheaf .block .paragraph { margin-bottom:0px; }
 #sheaf .block_label { font-weight:bold; color:#222222; }
 #sheaf .true { padding:7px; white-space:normal; }
 #sheaf .task { padding:7px; white-space:normal; }

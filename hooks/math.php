@@ -41,6 +41,7 @@ function sheaf_hook_math ($s) {
   $s=sheaf::r($s, '^{%d}', '<sup><i>d</i></sup>');
   $s=sheaf::r($s, '^{%e}', '<sup><i>e</i></sup>');
   $s=sheaf::r($s, '^{%n}', '<sup><i>n</i></sup>');
+  $s=sheaf::r($s, '^{%l}', '<sup><i>l</i></sup>');
   $s=sheaf::r($s, '^{%m}', '<sup><i>m</i></sup>');
   $s=sheaf::r($s, '^{%r}', '<sup><i>r</i></sup>');
   $s=sheaf::r($s, '^{%c}', '<sup><i>c</i></sup>');
