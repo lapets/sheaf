@@ -23,6 +23,7 @@ body { font-family:Times,serif; }
 #sheaf .toc ul { margin:0px; padding-top:0px; }
 #sheaf .toc ul li { margin:0px; padding:0px; }
 
+#sheaf h1 { white-space:nowrap; color:#9A9A9A; margin-bottom:40px; }
 #sheaf h2 { margin-top:40px; white-space:nowrap; color:#6A6A6A; }
 #sheaf h3 { padding-top:40px; white-space:nowrap; }
 #sheaf .header_numeral { color:#8A8A8A; }
