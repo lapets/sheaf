@@ -110,6 +110,14 @@ class Sheaf {
       global $counter;
       global $tagPath;
       $tagPath .= '/'.$name;
+      $pathLeaf = $name;
+
+      // If we are importing a file, process its contents for TOC rendering.
+      if ( $pathLeaf === 'include' ) {
+        $imported = @file_get_contents($attrs['sheaf']);
+        sheaf::do_xml_parse("parse_render_toc_lft", "parse_render_toc_val", "parse_render_toc_rgt", $imported);
+        return;
+      }
 
       if ($tagPath == '/sheaf')
         $tocHTML .= '<div class="toc"><ul>';
@@ -145,7 +153,7 @@ class Sheaf {
         $tocHTML .= '  <li>'.$counter['appendix'].'.'.$counter['subsection'].'.'
                   . ' <a href="#'.$id.'">'.$attrs['title'].'</a></li>';
       }
-      if ($tagPath == '/sheaf/section/assignment') {
+      if ($pathLeaf == 'assignment') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
         $tocHTML .= '  <li>'.$counter['section'].'.'.$counter['subsection'].'.'
                   . ' <a href="#'.$id.'"><b>Assignment #'.sheaf::strval0($counter['assignment']).': '.$attrs['title'].'</b></a></li>';
@@ -163,6 +171,7 @@ class Sheaf {
       global $tocHTML;
       global $counter;
       global $tagPath;
+      $pathLeaf = $name;
 
       if ($tagPath == '/sheaf') { $tocHTML .= '</ul></div>'; }
       if ($tagPath == '/sheaf/section') { $counter['section']++; $counter['subsection'] = 1; $tocHTML .= "\n  </ul>\n </li>"; }
@@ -170,7 +179,7 @@ class Sheaf {
       if ($tagPath == '/sheaf/midterm') { $counter['midterm']++; $tocHTML .= "\n  </ul>\n </li>"; }
       if ($tagPath == '/sheaf/final') { $tocHTML .= "\n  </ul>\n </li>"; }
       if ($tagPath == '/sheaf/section/subsection') { $counter['subsection']++; }
-      if ($tagPath == '/sheaf/section/assignment') { $counter['subsection']++; $counter['assignment']++; }
+      if ($pathLeaf == 'assignment') { $counter['subsection']++; $counter['assignment']++; }
       if ($tagPath == '/sheaf/section/project') { $counter['subsection']++; $counter['project']++; }
       if ($tagPath == '/sheaf/appendix') { $counter['appendix']++; $counter['subsection'] = 1; $tocHTML .= "\n  </ul>\n </li>"; }
       if ($tagPath == '/sheaf/appendix/subsection') { $counter['subsection']++; }
@@ -219,7 +228,7 @@ class Sheaf {
       global $tocHTML;
       $pathPrefix = $tagPath;
       $tagPath .= '/'.$name;
-      $pathLeaf = sheaf::pathLeaf($tagPath);
+      $pathLeaf = $name;
 
       // Update the hooks.
       array_push($hooks, (array_key_exists('hooks', $attrs)) ? $attrs['hooks'] : "");
@@ -313,7 +322,7 @@ class Sheaf {
         echo "\n  ".'<a name="'.$id.'"></a><div class="subsection">';
         echo '<h3 class="linked">'.sheaf::link($id).'<span class="header_numeral">'.$counter['appendix'].'.'.$counter['subsection'].'.</span> '. $attrs['title'].'</h3>';
       }
-      if ($tagPath == '/sheaf/section/assignment') {
+      if ($pathLeaf == 'assignment') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
         echo '<br/><hr class="work_separator"/>'
            . '<a name="'.$id.'"></a>'
@@ -467,7 +476,7 @@ class Sheaf {
       global $tagPath;
       global $lastSubsectionWasWork;
       $pathPrefix = sheaf::pathPrefix($tagPath);
-      $pathLeaf = sheaf::pathLeaf($tagPath);
+      $pathLeaf = $name;
 
       $attrs = array_pop($attributes);
 
@@ -496,8 +505,8 @@ class Sheaf {
           $lastSubsectionWasWork = false;
         }
       }
-      if ($tagPath == '/sheaf/section/assignment') { $counter['subsection']++; $counter['assignment']++; echo "\n".'</div><hr class="work_separator"/><br/>'; $lastSubsectionWasWork = true; }
-      if ($tagPath == '/sheaf/section/project') { $counter['subsection']++; $counter['project']++; echo "\n".'</div><hr class="work_separator"/><br/>'; $lastSubsectionWasWork = true; }
+      if ($pathLeaf == 'assignment') { $counter['subsection']++; $counter['assignment']++; echo "\n".'</div><hr class="work_separator"/><br/>'; $lastSubsectionWasWork = true; }
+      if ($pathLeaf == 'project') { $counter['subsection']++; $counter['project']++; echo "\n".'</div><hr class="work_separator"/><br/>'; $lastSubsectionWasWork = true; }
 
       // Categorized blocks that appear at top level.
       if ( $pathPrefix === '/sheaf/section'
