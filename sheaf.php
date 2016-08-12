@@ -70,7 +70,7 @@ class Sheaf {
   */
   public function html() {
     if (array_key_exists('file', $this->sheaf))
-      $xml = file_get_contents($this->sheaf['file']);
+      $xml = @file_get_contents($this->sheaf['file']);
     else if (array_key_exists('content', $this->sheaf))
       $xml = $this->sheaf['content'];
 
@@ -224,6 +224,13 @@ class Sheaf {
       // Update the hooks.
       array_push($hooks, (array_key_exists('hooks', $attrs)) ? $attrs['hooks'] : "");
       $attributes[] = $attrs;
+
+      // If we are importing a file, render it.
+      if ( $pathLeaf === 'include' ) {
+        $imported = @file_get_contents($attrs['sheaf']);
+        sheaf::do_xml_parse("parse_render_lft", "parse_render_val", "parse_render_rgt", $imported);
+        return;
+      }
 
       // Render the header for the entire HTML document.
       if ($tagPath == '/sheaf') {
@@ -573,7 +580,7 @@ class Sheaf {
     return $xml_parser;
   }
 
-  private static function do_xml_parse($startF, $datF, $endF, $xml) {
+  public static function do_xml_parse($startF, $datF, $endF, $xml) {
     $xml_parser = sheaf::mk_xml_parser($startF, $datF, $endF);
     if (!xml_parse($xml_parser, $xml))
       die(
