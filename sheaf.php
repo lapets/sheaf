@@ -442,7 +442,7 @@ class Sheaf {
         $applied = array();
         foreach ($hooks as $hooklist) {
           if (strlen($hooklist) > 0) {
-            foreach (split(',', $hooklist) as $hook) {
+            foreach (explode(',', $hooklist) as $hook) {
               if (!in_array($hook, $applied)) {
                 $out = call_user_func('sheaf_hook_'.$hook, $out);
                 $applied[] = $hook;
@@ -606,12 +606,12 @@ class Sheaf {
   }
 
   public static function pathLeaf($path) {
-    $a = split("/", $path);
+    $a = explode("/", $path);
     return (count($a) < 1) ? null : $a[count($a)-1];
   }
 
   public static function pathPrefix($path) {
-    $a = split("/", $path);
+    $a = explode("/", $path);
     array_pop($a);
     return implode("/", $a);
   }
