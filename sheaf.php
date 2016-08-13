@@ -129,11 +129,11 @@ class Sheaf {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('R.'.$counter['review']);
         $tocHTML .= ' <li><a href="#'.$id.'"><i>Review #'.$counter['review'].': '.$attrs['title']."</i></a>\n  <ul>";
       }
-      if ($tagPath === '/sheaf/midterm') {
+      if ($pathLeaf === 'midterm') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('M.'.$counter['midterm']);
         $tocHTML .= ' <li><a href="#'.$id.'"><b>Midterm: '.$attrs['title']."</b></a>\n  <ul>";
       }
-      if ($tagPath === '/sheaf/final') {
+      if ($pathLeaf === 'final') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : 'F';
         $tocHTML .= ' <li><a href="#'.$id.'"><b>Final: '.$attrs['title']."</b></a>\n  <ul>";
       }
@@ -158,7 +158,7 @@ class Sheaf {
         $tocHTML .= '  <li>'.$counter['section'].'.'.$counter['subsection'].'.'
                   . ' <a href="#'.$id.'"><b>Assignment #'.sheaf::strval0($counter['assignment']).': '.$attrs['title'].'</b></a></li>';
       }
-      if ($tagPath === '/sheaf/section/project') {
+      if ($pathLeaf === 'project') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
         $tocHTML .= '  <li>'.$counter['section'].'.'.$counter['subsection'].'.'
                   . ' <a href="#'.$id.'"><b>Project #'.sheaf::strval0($counter['project']).': '.$attrs['title'].'</b></a></li>';
@@ -176,11 +176,11 @@ class Sheaf {
       if ($tagPath === '/sheaf') { $tocHTML .= '</ul></div>'; }
       if ($tagPath === '/sheaf/section') { $counter['section']++; $counter['subsection'] = 1; $tocHTML .= "\n  </ul>\n </li>"; }
       if ($tagPath === '/sheaf/review') { $counter['review']++; $tocHTML .= "\n  </ul>\n </li>"; }
-      if ($tagPath === '/sheaf/midterm') { $counter['midterm']++; $tocHTML .= "\n  </ul>\n </li>"; }
-      if ($tagPath === '/sheaf/final') { $tocHTML .= "\n  </ul>\n </li>"; }
+      if ($pathLeaf === 'midterm') { $counter['midterm']++; $tocHTML .= "\n  </ul>\n </li>"; }
+      if ($pathLeaf === 'final') { $tocHTML .= "\n  </ul>\n </li>"; }
       if ($tagPath === '/sheaf/section/subsection') { $counter['subsection']++; }
       if ($pathLeaf === 'assignment') { $counter['subsection']++; $counter['assignment']++; }
-      if ($tagPath === '/sheaf/section/project') { $counter['subsection']++; $counter['project']++; }
+      if ($pathLeaf === 'project') { $counter['subsection']++; $counter['project']++; }
       if ($tagPath === '/sheaf/appendix') { $counter['appendix']++; $counter['subsection'] = 1; $tocHTML .= "\n  </ul>\n </li>"; }
       if ($tagPath === '/sheaf/appendix/subsection') { $counter['subsection']++; }
       if ($tagPath === '/sheaf/references') { }
@@ -275,13 +275,13 @@ class Sheaf {
         echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Review #'.$counter['review'].'.</span> '.$attrs['title'].'</h2>';
         $lastSubsectionWasWork = false;
       }
-      if ($tagPath === '/sheaf/midterm') {
+      if ($pathLeaf === 'midterm') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('M.'.$counter['midterm']);
         echo '<a name="'.$id.'"></a><div class="work midterm"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
         echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Midterm.</span> '.$attrs['title'].'</h2>';
         $lastSubsectionWasWork = false;
       }
-      if ($tagPath === '/sheaf/final') {
+      if ($pathLeaf === 'final') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : 'F';
         echo '<a name="'.$id.'"></a><div class="work final"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
         echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Final.</span> '.$attrs['title'].'</h2>';
@@ -333,7 +333,7 @@ class Sheaf {
            . $counter['section'].'.'.$counter['subsection'].'.</span> '
            . '<span class="work_title">Assignment #'.sheaf::strval0($counter['assignment']).': '.$attrs['title'].'</span></h3>';
       }
-      if ($tagPath === '/sheaf/section/project') {
+      if ($pathLeaf === 'project') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
         echo '<br/><hr class="work_separator"/>'
            . '<a name="'.$id.'"></a>'
@@ -493,8 +493,8 @@ class Sheaf {
         $counter['subsection'] = 1;
       }
       if ($tagPath === '/sheaf/review') { $counter['review']++; echo "\n".'</div>'; }
-      if ($tagPath === '/sheaf/midterm') { $counter['midterm']++; echo "\n".'</div>'; }
-      if ($tagPath === '/sheaf/final') { echo "\n".'</div>'; }
+      if ($pathLeaf === 'midterm') { $counter['midterm']++; echo "\n".'</div>'; }
+      if ($pathLeaf === 'final') { echo "\n".'</div>'; }
       if ($tagPath === '/sheaf/appendix') { $counter['appendix']++; $counter['subsection'] = 1; echo '</div>'; }
       if ($tagPath === '/sheaf/references') { echo '</table></div>'; }
       if ($tagPath === '/sheaf/references/reference') { }
