@@ -373,7 +373,9 @@ class Sheaf {
         if ($pathLeaf === "unorderedlist") echo '<ul class="top">';
         if ($pathLeaf === "text") echo "\n".'<span class="text top">';
         if ($pathLeaf === "content") echo "\n".'<div class="top">';
-        if ($pathLeaf === "code") echo "\n".'<div class="code top"><div class="source">';
+        if ($pathLeaf === "code") {
+          echo "\n".'<div class="code top"><div class="source"><pre><code'.((array_key_exists('class', $attrs)) ? (' class="'.$attrs['class'].'"') : '').'>';
+        }
         if ($pathLeaf === "plugin") echo "\n".'<div class="top">';
 
       } else { // Handlers for blocks that do not appear at top level.
@@ -397,7 +399,9 @@ class Sheaf {
         // Source code, text, content, and plugin blocks.
         if ($pathLeaf === "text") echo "\n".'<span class="text">';
         if ($pathLeaf === "content") echo "\n".'<div>';
-        if ($pathLeaf === "code") echo "\n".'<div class="code"><div class="source">';
+        if ($pathLeaf === "code") {
+          echo "\n".'<div class="code"><div class="source"><pre><code'.((array_key_exists('class', $attrs)) ? (' class="'.$attrs['class'].'"') : '').'>';
+        }
         if ($pathLeaf === "table") echo "\n".'<div>';
         if ($pathLeaf === "diagram") echo "\n".'<div class="diagram">';
         if ($pathLeaf === "plugin") echo "\n".'<div>';
@@ -536,7 +540,7 @@ class Sheaf {
         if ($pathLeaf === "unorderedlist") echo '</ul>';
         if ($pathLeaf === "text") echo '</span>';
         if ($pathLeaf === "content") echo '</div>';
-        if ($pathLeaf === "code") echo '</div></div>';
+        if ($pathLeaf === "code") echo '</code></pre></div></div>';
         if ($pathLeaf === "plugin") echo '</div>';
 
       } else { // Handlers for blocks that do not appear at top level.
@@ -556,7 +560,7 @@ class Sheaf {
 
         if ($pathLeaf === "text") echo '</span>';
         if ($pathLeaf === "content") echo '</div>';
-        if ($pathLeaf === "code") echo '</div></div>';
+        if ($pathLeaf === "code") echo '</code></pre></div></div>';
         if ($pathLeaf === "table") echo '</div>';
         if ($pathLeaf === "diagram") echo '</div>';
         if ($pathLeaf === "plugin") echo '</div>';
