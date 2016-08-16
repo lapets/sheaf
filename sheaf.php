@@ -59,6 +59,12 @@ class Sheaf {
       $sheaf['path'] = '';
     if (!array_key_exists('toc', $sheaf))
       $sheaf['toc'] = 'true';
+    if (!array_key_exists('title', $sheaf))
+      $sheaf['title'] = '';
+    if (!array_key_exists('subtitle', $sheaf))
+      $sheaf['subtitle'] = '';
+    if (!array_key_exists('authors', $sheaf))
+      $sheaf['authors'] = '';
     if (!array_key_exists('message', $sheaf))
       $sheaf['message'] = '';
 
@@ -258,7 +264,10 @@ class Sheaf {
         echo "\n".'<body>';
         echo "\n".'<div class="sheaf" id="sheaf">';
 
-        echo $sheaf['message'];
+        if (strlen($sheaf['title']) > 0)
+          echo '<h1>'.$sheaf['title'].'</h1>';
+        if (strlen($sheaf['message']) > 0)
+          echo '<p>'.$sheaf['message'].'</p>';
         echo $tocHTML;
       }
 
