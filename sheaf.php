@@ -255,6 +255,10 @@ class Sheaf {
         echo "\n".'<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>';
         echo "\n".'<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/vs.min.css">';
         echo "\n".'<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>';
+        echo "\n".'<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/languages/haskell.min.js"></script>';
+        echo "\n".'<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/languages/javascript.min.js"></script>';
+        echo "\n".'<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/languages/python.min.js"></script>';
+        echo "\n".'<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/languages/sql.min.js"></script>';
         echo "\n".'<script src="http://d3js.org/d3.v3.min.js"></script>';
         echo "\n".'<script type="text/javascript" src="'.$sheaf['path'].'protoql.js"></script>';
         echo "\n".'<link rel="stylesheet" href="'.$sheaf['path'].'sheaf.css">';
