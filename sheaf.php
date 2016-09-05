@@ -127,7 +127,7 @@ class Sheaf {
       }
       if ($tagPath === '/sheaf/review') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('R.'.$counter['review']);
-        $tocHTML .= ' <li><a href="#'.$id.'"><i>Review #'.$counter['review'].': '.$attrs['title']."</i></a>\n  <ul>";
+        $tocHTML .= ' <li>Review '.$counter['review'].'. <a href="#'.$id.'">'.$attrs['title']."</a>\n  <ul>";
       }
       if ($pathLeaf === 'midterm') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('M.'.$counter['midterm']);
@@ -271,7 +271,7 @@ class Sheaf {
         }
         if (strlen($sheaf['note']) > 0)
           echo '<p>'.$sheaf['note'].'</p>';
-        echo '<hr/>';
+        //echo '<hr/>';
         echo $tocHTML;
       }
 
@@ -285,7 +285,7 @@ class Sheaf {
       if ($tagPath === '/sheaf/review') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('R.'.$counter['review']);
         echo '<a name="'.$id.'"></a><div class="review"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
-        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Review #'.$counter['review'].'.</span> '.$attrs['title'].'</h2>';
+        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Review '.$counter['review'].'.</span> '.$attrs['title'].'</h2>';
         $lastSubsectionWasWork = false;
       }
       if ($pathLeaf === 'midterm') {
