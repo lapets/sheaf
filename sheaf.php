@@ -120,7 +120,7 @@ class Sheaf {
       }
 
       if ($tagPath === '/sheaf')
-        $tocHTML .= '<div class="toc"><ul>';
+        $tocHTML .= '<div id="toc"><ul>';
       if ($tagPath === '/sheaf/section') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : $counter['section'];
         $tocHTML .= ' <li>'.$counter['section'].'. <a href="#'.$id.'">'.$attrs['title']."</a>\n  <ul>";

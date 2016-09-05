@@ -19,9 +19,9 @@
 body { font-family:Times,serif; }
 #sheaf { margin: 50px 60px 50px 60px; }
 
-#sheaf .toc { margin:18px 0px 18px 0px; }
-#sheaf .toc ul { margin:0px; padding-top:0px; }
-#sheaf .toc ul li { margin:0px; padding:0px; }
+#sheaf #toc { margin:18px 0px 18px 0px; }
+#sheaf #toc ul { margin:0px; padding-top:0px; }
+#sheaf #toc ul li { list-style-type:none; margin:0px; padding:0px; }
 
 #sheaf h1 { margin-bottom:40px; font-size:36px; color:#9A9A9A; }
 #sheaf h1 > span { display:block; margin-top:4px; font-size:20px; color:#9A9A9A; }
@@ -67,10 +67,6 @@ body { font-family:Times,serif; }
 
 #sheaf .code { margin:8px 8px 8px 8px; padding:5px 0px 5px 0px; /* #F4F4F4 */ border:1px dashed #AFAFAF; font-family:Monospace; font-size:12px; background-color:#F7F7F7; }
 #sheaf .code .source { margin:-8px 10px -8px 10px; line-height:16px; /* Fix for math entities in Chrome on old Windows machines. */ }
-#sheaf .code .source .comment { color:#8A8A8A; font-style:italic; }
-#sheaf .code .source .literal { color:firebrick; font-weight:bold; }
-#sheaf .code .source .keyword { color:blue; font-weight:bold; }
-#sheaf .code .source .builtin { color:purple; font-weight:bold; }
 
 #sheaf .midterm { } /* Same level as section, review, references, and appendix. */
 #sheaf .final { } /* Same level as section, review, references, and appendix. */
@@ -89,8 +85,8 @@ body { font-family:Times,serif; }
 #sheaf .block_label { font-weight:bold; color:#222222; }
 #sheaf .true { padding:7px; white-space:normal; }
 #sheaf .task { padding:7px; white-space:normal; }
-#sheaf .true_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; } /* #F6F3C8 (more saturated) */ /*F9F7DC*/
-#sheaf .task_required { padding:7px; white-space:normal; background-color:#E1F8E1; border:1px solid #CBEACB; }/* #D7F8D7 (more saturated) */
+#sheaf .true_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; } /* #F6F3C8 (more saturated) */ /* F9F7DC */
+#sheaf .task_required { padding:7px; white-space:normal; background-color:#E1F8E1; border:1px solid #CBEACB; } /* #D7F8D7 (more saturated) */
 
 #sheaf .solution { line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
 #sheaf .solution_container { border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:0px 0px -10px 0px; margin:0px 8px 8px 8px; }
