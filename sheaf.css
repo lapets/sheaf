@@ -17,13 +17,15 @@
 */
 
 body { font-family:Times,serif; }
-.sheaf { margin: 50px 60px 50px 60px; }
+#sheaf { margin: 50px 60px 50px 60px; }
 
 #sheaf .toc { margin:18px 0px 18px 0px; }
 #sheaf .toc ul { margin:0px; padding-top:0px; }
 #sheaf .toc ul li { margin:0px; padding:0px; }
 
-#sheaf h1 { white-space:nowrap; color:#9A9A9A; margin-bottom:40px; }
+#sheaf h1 { margin-bottom:40px; font-size:36px; color:#9A9A9A; }
+#sheaf h1 > span { display:block; margin-top:4px; font-size:20px; color:#9A9A9A; }
+#sheaf p { font-style:italic; color:#9A9A9A; }
 #sheaf h2 { margin-top:40px; white-space:nowrap; color:#6A6A6A; }
 #sheaf h3 { padding-top:40px; white-space:nowrap; }
 #sheaf .header_numeral { color:#8A8A8A; }
@@ -110,10 +112,13 @@ body { font-family:Times,serif; }
 #sheaf .argument       { margin:0px 20px 0px 20px; padding:0px 15px 0px 15px; background-color:#F6F6F6; padding:10px; border:2px solid #FFFFFF; }
 #sheaf .argument:hover { margin:0px 20px 0px 20px; padding:0px 15px 0px 15px; background-color:#F6F6F6; padding:10px; border:2px solid green; } /*D7F8D7*/
 
-.footer { margin:0px; padding:0px; width:100%; text-align:right; border-top:1px solid #DFDFDF; }
-.footer .sheaflink { color:#AFAFAF; font-family:Verdana,Arial,Sans-serif; font-size:10px; margin:5px; padding:5px; text-align:right; }
-.footer .sheaflink a { color:#777777; text-decoration:none; }
-.footer .sheaflink a:hover { color:#AFAFAF; text-decoration:none; }
+#footer { margin:0px; padding:0px; width:100%; border-top:1px solid #DFDFDF; font-family:Verdana,Arial,Sans-serif; font-size:12px; }
+#footer a { text-decoration:none; color:#AC701E; }
+#footer a:hover { text-decoration:underline; color:firebrick; }
+#footer .author { float:left; margin:5px; padding:5px; text-align:left; }
+#footer .sheaflink { float:right; margin:5px; padding:5px; text-align:right; }
+#footer .sheaflink a { color:#777777; text-decoration:none; }
+#footer .sheaflink a:hover { color:#AFAFAF; text-decoration:none; }
 
 .html_matrix_lft { border-left:1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000; }
 .html_matrix_rgt { border-right:1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000; }

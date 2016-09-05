@@ -57,16 +57,10 @@ class Sheaf {
       die(sprintf("sheaf: no input file or content specified; exiting."));
     if (!array_key_exists('path', $sheaf))
       $sheaf['path'] = '';
+    if (!array_key_exists('note', $sheaf))
+      $sheaf['note'] = '';
     if (!array_key_exists('toc', $sheaf))
       $sheaf['toc'] = 'true';
-    if (!array_key_exists('title', $sheaf))
-      $sheaf['title'] = '';
-    if (!array_key_exists('subtitle', $sheaf))
-      $sheaf['subtitle'] = '';
-    if (!array_key_exists('authors', $sheaf))
-      $sheaf['authors'] = '';
-    if (!array_key_exists('message', $sheaf))
-      $sheaf['message'] = '';
 
     $this->sheaf = $sheaf;
   }
@@ -266,12 +260,17 @@ class Sheaf {
         echo "\n".'<script>hljs.initHighlightingOnLoad();</script>';
         echo "\n".'</head>';
         echo "\n".'<body>';
-        echo "\n".'<div class="sheaf" id="sheaf">';
+        echo "\n".'<div id="sheaf">';
 
-        if (strlen($sheaf['title']) > 0)
-          echo '<h1>'.$sheaf['title'].'</h1>';
-        if (strlen($sheaf['message']) > 0)
-          echo '<p>'.$sheaf['message'].'</p>';
+        if (array_key_exists('title', $attrs) && strlen($attrs['title']) > 0) {
+          echo '<h1>'.$attrs['title'];
+          if (array_key_exists('subtitle', $attrs) && strlen($attrs['subtitle']) > 0)
+            echo '<span>'.$attrs['subtitle'].'</span>';
+          echo '</h1>';
+        }
+        if (strlen($sheaf['note']) > 0)
+          echo '<p>'.$sheaf['note'].'</p>';
+        echo '<hr/>';
         echo $tocHTML;
       }
 
@@ -502,7 +501,12 @@ class Sheaf {
 
       // Render the XML as HTML.
       if ($tagPath === '/sheaf') {
-        echo "\n".'</div><div class="footer"><div class="sheaflink">represented and rendered using <a href="http://sheaf.io">sheaf</a></div></div></body>';
+        echo "\n".'</div>';
+        echo '<div id="footer">';
+        $author = array_key_exists('authorlink', $attrs) ? '<a href="'.$attrs['authorlink'].'">'.$attrs['author'].'</a>' : $attrs['author'];
+        echo '<div class="author">'.$author.'</div>';
+        echo '<div class="sheaflink"><a href="http://sheaf.io">sheaf</a></div>';
+        echo '</div></body>';
       }
       if ($tagPath === '/sheaf/section' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         echo "\n".'</div>';
