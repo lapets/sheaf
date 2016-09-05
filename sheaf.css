@@ -20,7 +20,7 @@ body { font-family:Times,serif; }
 #sheaf { margin: 50px 60px 50px 60px; }
 
 #sheaf #toc { margin:18px 0px 18px 0px; }
-#sheaf #toc ul { margin:0px; padding-top:0px; }
+#sheaf #toc ul { margin:0px; padding-top:0px; padding-left:20px; }
 #sheaf #toc ul li { list-style-type:none; margin:0px; padding:0px; }
 
 #sheaf h1 { margin-bottom:40px; font-size:36px; color:#9A9A9A; }
