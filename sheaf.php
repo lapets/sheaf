@@ -246,6 +246,7 @@ class Sheaf {
         echo '<head>';
         echo "\n".'<meta charset="utf-8">';
         echo "\n".'<title>'.$attrs['title'].'</title>';
+        echo "\n".'<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Alex+Brush">';
         echo "\n".'<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>';
         echo "\n".'<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/vs.min.css">';
         echo "\n".'<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>';
@@ -504,8 +505,8 @@ class Sheaf {
         echo "\n".'</div>';
         echo '<div id="footer">';
         $author = array_key_exists('authorlink', $attrs) ? '<a href="'.$attrs['authorlink'].'">'.$attrs['author'].'</a>' : $attrs['author'];
-        echo '<div class="author">'.$author.'</div>';
-        echo '<div class="sheaflink"><a href="http://sheaf.io">sheaf</a></div>';
+        echo '<div id="author">'.$author.'</div>';
+        echo '<div id="sheaflink"><a href="http://sheaf.io">sheaf</a></div>';
         echo '</div></body>';
       }
       if ($tagPath === '/sheaf/section' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {

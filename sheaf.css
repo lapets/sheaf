@@ -112,13 +112,13 @@ body { font-family:Times,serif; }
 #sheaf .argument       { margin:0px 20px 0px 20px; padding:0px 15px 0px 15px; background-color:#F6F6F6; padding:10px; border:2px solid #FFFFFF; }
 #sheaf .argument:hover { margin:0px 20px 0px 20px; padding:0px 15px 0px 15px; background-color:#F6F6F6; padding:10px; border:2px solid green; } /*D7F8D7*/
 
-#footer { margin:0px; padding:0px; width:100%; border-top:1px solid #DFDFDF; font-family:Verdana,Arial,Sans-serif; font-size:12px; }
+#footer { margin:0px; padding:0px; width:100%; border-top:1px solid #DFDFDF; font-family:Verdana,Arial,Sans-serif; }
 #footer a { text-decoration:none; color:#AC701E; }
 #footer a:hover { text-decoration:underline; color:firebrick; }
-#footer .author { float:left; margin:5px; padding:5px; text-align:left; }
-#footer .sheaflink { float:right; margin:5px; padding:5px; text-align:right; }
-#footer .sheaflink a { color:#777777; text-decoration:none; }
-#footer .sheaflink a:hover { color:#AFAFAF; text-decoration:none; }
+#footer #author { float:left; margin:5px; padding:5px; text-align:left; font-size:12px; }
+#footer #sheaflink { float:right; margin:2px; padding:0px; text-align:right; font-family:'Alex Brush',sans-serif; font-size:24px;}
+#footer #sheaflink a { color:#444444; text-decoration:none; }
+#footer #sheaflink a:hover { color:#A2A2A2; text-decoration:none; }
 
 .html_matrix_lft { border-left:1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000; }
 .html_matrix_rgt { border-right:1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000; }
