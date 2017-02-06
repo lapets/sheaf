@@ -74,7 +74,6 @@ class Sheaf {
     else if (array_key_exists('content', $this->sheaf))
       $xml = $this->sheaf['content'];
 
-    echo '<?xml version="1.0" encoding="UTF-8"?>';
     echo "\n".'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
     echo "\n"."<html>"."\n";
 
@@ -245,6 +244,7 @@ class Sheaf {
       if ($tagPath === '/sheaf') {
         echo '<head>';
         echo "\n".'<meta charset="utf-8">';
+        echo "\n".'<meta name="viewport" content="width=device-width, initial-scale=1">';
         echo "\n".'<title>'.$attrs['title'].'</title>';
         echo "\n".'<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Alex+Brush">';
         echo "\n".'<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>';
