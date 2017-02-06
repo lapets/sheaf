@@ -6,7 +6,7 @@
 ** rendering of common, abstract mathematical structures.
 **
 **   Web:     protoql.org
-**   Version: 0.0.2.0
+**   Version: 0.0.3.0
 **
 */
 
@@ -534,7 +534,9 @@
         V.svg = 
           d3.select('#' + id)
             .append("svg")
-              .attr("width", V.dimensions.width).attr("height", V.dimensions.height)
+              .attr("width", "100%").attr("height", "100%")
+              .attr('viewBox', '0 0 ' + V.dimensions.width + ' ' + V.dimensions.height)
+              .attr('preserveAspectRatio', 'xMidYMid meet')
             ;
 
         // If editing of the diagram notation is enabled.
