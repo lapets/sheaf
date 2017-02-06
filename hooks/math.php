@@ -156,7 +156,7 @@ function sheaf_hook_math ($s) {
       '\\subset' => '&sub;',
       '\\cup' => '&cup;',
       '\\cap' => '&cap;',
-      '\\times' => '&#215',
+      '\\times' => '&#215;',
       '\\Downarrow' => '&dArr;',
       '\\Sigma' => '&Sigma;',
       '\\sigma' => '&sigma;',
