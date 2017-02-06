@@ -48,7 +48,7 @@ body { font-family:Times,serif; }
 #sheaf .top { } /* Top-level block (within section or subsection). */
 
 #sheaf .paragraph { margin:12px 0px 12px 0px; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
-#sheaf .text { margin:8px 0px 8px 0px; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
+#sheaf .text { display:inline; margin:8px 0px 8px 0px; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
 
 #sheaf a { text-decoration:none; color:#AC701E; }
 #sheaf a:hover { text-decoration:underline; color:firebrick; }

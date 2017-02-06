@@ -384,7 +384,7 @@ class Sheaf {
         if ($pathLeaf === "paragraph") echo '<div class="paragraph">' . ((array_key_exists('title', $attrs)) ? ('<b>'.$attrs['title'].'.</b> ') : '');
         if ($pathLeaf === "orderedlist") echo '<ol'.((array_key_exists('style', $attrs)) ? (' style="'.$attrs['style'].'"') : '').'>';
         if ($pathLeaf === "unorderedlist") echo '<ul class="top">';
-        if ($pathLeaf === "text") echo "\n".'<span class="text top">';
+        if ($pathLeaf === "text") echo "\n".'<div class="text top">';
         if ($pathLeaf === "content") echo "\n".'<div class="top">';
         if ($pathLeaf === "code") {
           echo "\n".'<div class="code top"><div class="source"><pre><code'.((array_key_exists('class', $attrs)) ? (' class="'.$attrs['class'].'"') : '').'>';
@@ -410,7 +410,7 @@ class Sheaf {
         if ($pathLeaf === "item") echo '<li>' . ((array_key_exists('title', $attrs)) ? ('<b>'.$attrs['title'].': </b>') : '');
 
         // Source code, text, content, and plugin blocks.
-        if ($pathLeaf === "text") echo "\n".'<span class="text">';
+        if ($pathLeaf === "text") echo "\n".'<div class="text">';
         if ($pathLeaf === "content") echo "\n".'<div>';
         if ($pathLeaf === "code") {
           echo "\n".'<div class="code"><div class="source"><pre><code'.((array_key_exists('class', $attrs)) ? (' class="'.$attrs['class'].'"') : '').'>';
@@ -556,7 +556,7 @@ class Sheaf {
         if ($pathLeaf === 'paragraph') echo '</div>';
         if ($pathLeaf === "orderedlist") echo '</ol>';
         if ($pathLeaf === "unorderedlist") echo '</ul>';
-        if ($pathLeaf === "text") echo '</span>';
+        if ($pathLeaf === "text") echo '</div>';
         if ($pathLeaf === "content") echo '</div>';
         if ($pathLeaf === "code") echo '</code></pre></div></div>';
         if ($pathLeaf === "plugin") echo '</div>';
@@ -576,7 +576,7 @@ class Sheaf {
         if ($pathLeaf === "unorderedlist") echo '</ul>';
         if ($pathLeaf === "item") echo '</li>';
 
-        if ($pathLeaf === "text") echo '</span>';
+        if ($pathLeaf === "text") echo '</div>';
         if ($pathLeaf === "content") echo '</div>';
         if ($pathLeaf === "code") echo '</code></pre></div></div>';
         if ($pathLeaf === "table") echo '</div>';
