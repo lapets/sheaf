@@ -33,15 +33,15 @@ $(document).ready(function() {
   });
 
   // Update links to references with indices.
-  var nameToBibIndex = {};
+  var idToBibIndex = {};
   $('.cite').each(function() {
-    var name = $(this)[0].children[0].name, index = $(this)[0].innerText.slice(1,-1);
-    nameToBibIndex[name] = index;
+    var id = $(this)[0].children[0].id, index = $(this)[0].innerText.slice(1,-1);
+    idToBibIndex[id] = index;
   });
   $('a').each(function() {
-    var name = $(this)[0].attributes[0].nodeValue.slice(1);
-    if (nameToBibIndex[name] != null && $(this)[0].childNodes[0].data == '#')
-      $(this)[0].childNodes[0].data = nameToBibIndex[name];
+    var id = $(this)[0].attributes[0].nodeValue.slice(1);
+    if (idToBibIndex[id] != null && $(this)[0].childNodes[0].data == '#')
+      $(this)[0].childNodes[0].data = idToBibIndex[id];
   });
 })
 
