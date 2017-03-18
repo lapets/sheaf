@@ -16,15 +16,15 @@
 /********************************************************************
 */
 
-body { font-family:Times,serif; }
-#sheaf { margin: 50px 60px 50px 60px; }
+html, body { width:100%; height:100%; margin:0 auto; background-color:#FFFFFF; font-size:1em; font-family:Times,serif; }
+#sheaf { margin:50px 60px 50px 60px; }
 
 #sheaf #toc { margin:18px 0px 18px 0px; }
 #sheaf #toc ul { margin:0px; padding-top:0px; padding-left:20px; }
 #sheaf #toc ul li { list-style-type:none; margin:0px; padding:0px; }
 
-#sheaf h1 { margin-bottom:40px; font-size:36px; color:#9A9A9A; }
-#sheaf h1 > span { display:block; margin-top:4px; font-size:20px; color:#9A9A9A; }
+#sheaf h1 { margin-bottom:40px; font-size:2.3rem; color:#9A9A9A; }
+#sheaf h1 > span { display:block; margin-top:4px; font-size:1.3rem; color:#9A9A9A; }
 #sheaf p { font-style:italic; color:#9A9A9A; }
 #sheaf h2 { margin-top:40px; white-space:nowrap; color:#6A6A6A; }
 #sheaf h3 { padding-top:40px; white-space:nowrap; }
@@ -33,40 +33,49 @@ body { font-family:Times,serif; }
 #sheaf .last_subsection_was_work { margin:-20px 0px 120px 0px; border-color:#FFFFFF; }
 
 #sheaf .linked { position:relative; left:-45px; }
-#sheaf .link-title { color:#9F9F9F; font-variant:small-caps; font-size:11px; font-weight:bold; display:inline-block; vertical-align:bottom; padding:0px 7px 5px 0px; }
-#sheaf .link-block { color:#9F9F9F; font-variant:small-caps; font-size:11px; font-weight:bold; float:left; display:inline; vertical-align:top; position:relative; top:7px; margin-right:10px; }
+#sheaf .link-title { color:#9F9F9F; font-variant:small-caps; font-size:0.7rem; font-weight:bold; display:inline-block; vertical-align:bottom; padding:0px 7px 5px 0px; }
+#sheaf .link-block { color:#9F9F9F; font-variant:small-caps; font-size:0.7rem; font-weight:bold; float:left; display:inline; vertical-align:top; position:relative; top:7px; margin-right:10px; }
 
 #sheaf .section { }
 #sheaf .review { }
 #sheaf .references { }
 #sheaf .references table tr td { padding:5px; }
-#sheaf .references table tr .cite { min-width:20px; vertical-align:top; font-size:12px; }
-#sheaf .references table tr td a { font-family:Courier,Monospace,Sans-serif; font-size:12px; }
+#sheaf .references table tr .cite { min-width:20px; vertical-align:top; font-size:0.75rem; }
+#sheaf .references table tr td a { font-family:Courier,Monospace,Sans-serif; font-size:0.75rem; }
 #sheaf .appendix { }
 
 #sheaf .subsection { }
 #sheaf .top { } /* Top-level block (within section or subsection). */
 
-#sheaf .paragraph { margin:12px 0px 12px 0px; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
-#sheaf .text { display:inline; margin:8px 0px 8px 0px; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
+#sheaf .paragraph { margin:12px 0px 12px 0px; line-height:1.25rem; /* Fix for math entities in Chrome on old Windows machines. */ }
+#sheaf .text { display:inline; margin:8px 0px 8px 0px; line-height:1.25rem; /* Fix for math entities in Chrome on old Windows machines. */ }
 
-#sheaf a { text-decoration:none; color:#AC701E; }
+#sheaf a {
+  text-decoration:none;
+  color:#AC701E;
+  white-space:pre-wrap;      /* CSS3 */
+  white-space:-moz-pre-wrap; /* Firefox */
+  white-space:-pre-wrap;     /* Opera <7 */
+  white-space:-o-pre-wrap;   /* Opera 7 */
+  word-wrap:break-word;      /* IE */
+  word-break:break-all;
+}
 #sheaf a:hover { text-decoration:underline; color:firebrick; }
 #sheaf code { background-color:#EEEEEE; padding:0px 2px 0px 2px;}
 #sheaf ul { padding-top:0px 0px 0px 5px; margin:8px 0px 8px 0px; }
 #sheaf ul li ul { padding-top:0px 0px 0px 5px; margin:0px 0px 0px 0px; }
 #sheaf ol { margin-left:8px; padding-top:0px 0px 0px 5px; }
 #sheaf li { text-align:left; position:relative; min-width:200px; padding:0px 0px 0px 0px; }
-#sheaf table { line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
+#sheaf table { line-height:1.25rem; /* Fix for math entities in Chrome on old Windows machines. */ }
 
 #sheaf .inferences { padding:8px 8px 8px 16px; }
 #sheaf .inferences .inference { padding:5px 1px 5px 1px; }
 #sheaf .inferences .inference .premises { border-bottom:1px solid #000000; border-spacing:0; border-collapse:collapse; padding:0px 12px 0px 12px; text-align:center; }
 #sheaf .inferences .inference .conclusion {  border:0px; border-spacing:0; border-collapse:collapse; padding:0px 12px 0px 12px; text-align:center; }
-#sheaf .inferences .inference .title { font-family:serif; font-variant:small-caps; font-size:14px; }
+#sheaf .inferences .inference .title { font-family:serif; font-variant:small-caps; font-size:0.85rem; }
 
-#sheaf .code { margin:8px 8px 8px 8px; padding:5px 0px 5px 0px; /* #F4F4F4 */ border:1px dashed #AFAFAF; font-family:Monospace; font-size:12px; background-color:#F7F7F7; }
-#sheaf .code .source { margin:-8px 10px -8px 10px; line-height:16px; /* Fix for math entities in Chrome on old Windows machines. */ }
+#sheaf .code { margin:8px 8px 8px 8px; padding:5px 0px 5px 0px; /* #F4F4F4 */ border:1px dashed #AFAFAF; font-family:Monospace; font-size:0.9rem; background-color:#F7F7F7; }
+#sheaf .code .source { margin:-8px 10px -8px 10px; line-height:1rem; /* Fix for math entities in Chrome on old Windows machines. */ }
 
 #sheaf .midterm { } /* Same level as section, review, references, and appendix. */
 #sheaf .final { } /* Same level as section, review, references, and appendix. */
@@ -80,7 +89,7 @@ body { font-family:Times,serif; }
 #sheaf .work .problems .problem .parts { margin:10px 0px 0px 0px; list-style-type:lower-alpha; }
 #sheaf .work .problems .problem .part { margin:10px 0px 0px -20px; }
 
-#sheaf .block { margin: 12px 0px 12px 0px; white-space:nowrap; line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
+#sheaf .block { margin: 12px 0px 12px 0px; white-space:nowrap; line-height:1.25rem; /* Fix for math entities in Chrome on old Windows machines. */ }
 #sheaf .block .paragraph { margin-bottom:0px; }
 #sheaf .block_label { font-weight:bold; color:#222222; }
 #sheaf .true { padding:7px; white-space:normal; }
@@ -88,14 +97,14 @@ body { font-family:Times,serif; }
 #sheaf .true_required { padding:7px; white-space:normal; background-color:#F6F4D8; border:1px solid #E5E2BA; } /* #F6F3C8 (more saturated) */ /* F9F7DC */
 #sheaf .task_required { padding:7px; white-space:normal; background-color:#E1F8E1; border:1px solid #CBEACB; } /* #D7F8D7 (more saturated) */
 
-#sheaf .solution { line-height:20px; /* Fix for math entities in Chrome on old Windows machines. */ }
+#sheaf .solution { line-height:1.25rem; /* Fix for math entities in Chrome on old Windows machines. */ }
 #sheaf .solution_container { border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:0px 0px -10px 0px; margin:0px 8px 8px 8px; }
 #sheaf .solution_container .solution { background-color:#E6F9F4; border-top:0px; border-left:1px dotted green; border-right:1px dotted green; border-bottom:1px dotted green; padding:8px 8px 8px 8px; }
 #sheaf .solution_spacer { margin-bottom:4px; }
 
-#sheaf .diagram { margin:14px; text-align:center; width:100%; font-size:12px; font-family:Arial,Sans-serif; }
+#sheaf .diagram { margin:14px; text-align:center; width:100%; font-size:0.9rem; font-family:Arial,Sans-serif; }
 #sheaf .diagram .container { border-spacing:7px; margin:0 auto; }
-#sheaf .diagram .container .box { font-weight:bold; padding:2px 10px 2px 10px; border:1px dashed #444444; text-align:center; line-height:15px; /* Fix for math entities in Chrome on old Windows machines. */ }
+#sheaf .diagram .container .box { font-weight:bold; padding:2px 10px 2px 10px; border:1px dashed #444444; text-align:center; line-height:0.9rem; /* Fix for math entities in Chrome on old Windows machines. */ }
 
 #sheaf .fig_table { margin:8px 8px 8px 8px; border:1px #CCCCCC solid; }
 #sheaf .fig_table td { padding:4px 10px 4px 10px; margin:0px 10px 0px 10px; white-space:nowrap; background-color:#EFEFEF; }
@@ -103,7 +112,7 @@ body { font-family:Times,serif; }
 #sheaf .truthtable td { text-align:center; }
 
 #sheaf .button { border:0px; margin:8px 8px 0px 8px; padding:0px; }
-#sheaf button { text-align:center; font-family:Verdana,Arial,Sans-serif; font-size:10px; color:#555555; cursor:pointer; padding:0px; margin-left:auto; width:100%; }
+#sheaf button { text-align:center; font-family:Verdana,Arial,Sans-serif; font-size:0.6rem; color:#555555; cursor:pointer; padding:0px; margin-left:auto; width:100%; }
 
 #sheaf .argument       { margin:0px 20px 0px 20px; padding:0px 15px 0px 15px; background-color:#F6F6F6; padding:10px; border:2px solid #FFFFFF; }
 #sheaf .argument:hover { margin:0px 20px 0px 20px; padding:0px 15px 0px 15px; background-color:#F6F6F6; padding:10px; border:2px solid green; } /*D7F8D7*/
@@ -111,8 +120,8 @@ body { font-family:Times,serif; }
 #footer { margin:0px; padding:0px; width:100%; border-top:1px solid #DFDFDF; font-family:Verdana,Arial,Sans-serif; }
 #footer a { text-decoration:none; color:#AC701E; }
 #footer a:hover { text-decoration:underline; color:firebrick; }
-#footer #author { float:left; margin:5px; padding:5px; text-align:left; font-size:12px; }
-#footer #sheaflink { float:right; margin:2px; padding:0px; text-align:right; font-family:'Alex Brush',sans-serif; font-size:24px;}
+#footer #author { float:left; margin:5px; padding:5px; text-align:left; font-size:0.75rem; }
+#footer #sheaflink { float:right; margin:2px 6px 2px 2px; padding:0px; text-align:right; font-family:'Alex Brush',sans-serif; font-size:1.5rem;}
 #footer #sheaflink a { color:#444444; text-decoration:none; }
 #footer #sheaflink a:hover { color:#A2A2A2; text-decoration:none; }
 
@@ -124,5 +133,10 @@ body { font-family:Times,serif; }
 .html_frac_rgt { border-right:0px solid #000000; border-top:0px solid #000000; border-bottom:0px solid #000000; }
 .html_frac_numerator { text-align:center; padding-left:2px; padding-right:2px; margin:0px; }
 .html_frac_denominator { text-align:center; padding-left:2px; padding-right:2px; margin:0px; }
+
+@media all and (max-width:600px) { 
+  #sheaf h2 { white-space:normal; }
+  #sheaf h3 { white-space:normal; }
+}
 
 /* eof */
