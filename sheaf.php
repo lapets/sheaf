@@ -279,37 +279,37 @@ class Sheaf {
       if ($tagPath === '/sheaf/section' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : $counter['section'];
         echo "\n".'<a id="'.$id.'"></a>'."\n".'<div class="section"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
-        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">'.$counter['section'].'.</span> '.$attrs['title'].'</h2>';
+        echo '<h2 class="linked heading">'.sheaf::link($id).'<div><span class="header_numeral">'.$counter['section'].'.</span> '.$attrs['title'].'</div></h2>';
         $lastSubsectionWasWork = false;
       }
       if ($tagPath === '/sheaf/review') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('R.'.$counter['review']);
         echo '<a id="'.$id.'"></a><div class="review"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
-        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Review '.$counter['review'].'.</span> '.$attrs['title'].'</h2>';
+        echo '<h2 class="linked heading">'.sheaf::link($id).'<div><span class="header_numeral">Review '.$counter['review'].'.</span> '.$attrs['title'].'</div></h2>';
         $lastSubsectionWasWork = false;
       }
       if ($pathLeaf === 'midterm') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ('M.'.$counter['midterm']);
         echo '<a id="'.$id.'"></a><div class="work midterm"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
-        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Midterm.</span> '.$attrs['title'].'</h2>';
+        echo '<h2 class="linked heading">'.sheaf::link($id).'<div><span class="header_numeral">Midterm.</span> '.$attrs['title'].'</div></h2>';
         $lastSubsectionWasWork = false;
       }
       if ($pathLeaf === 'final') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : 'F';
         echo '<a id="'.$id.'"></a><div class="work final"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
-        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Final.</span> '.$attrs['title'].'</h2>';
+        echo '<h2 class="linked heading">'.sheaf::link($id).'<div><span class="header_numeral">Final.</span> '.$attrs['title'].'</div></h2>';
         $lastSubsectionWasWork = false;
       }
       if ($tagPath === '/sheaf/appendix') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : $counter['appendix'];
         echo '<a id="'.$id.'"></a><div class="appendix"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
-        echo '<h2 class="linked">'.sheaf::link($id).'<span class="header_numeral">Appendix '.$counter['appendix'].'.</span> '.$attrs['title'].'</h2>';
+        echo '<h2 class="linked heading">'.sheaf::link($id).'<div><span class="header_numeral">Appendix '.$counter['appendix'].'.</span> '.$attrs['title'].'</div></h2>';
         $lastSubsectionWasWork = false;
       }
       if ($tagPath === '/sheaf/references') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : $counter['appendix'];
         echo '<a id="bib"></a><div class="references"><hr '.($lastSubsectionWasWork?'class="last_subsection_was_work"':'').'/>';
-        echo '<h2 class="linked">'.sheaf::link("bib").'<span class="header_numeral">References</span></h2><table>';
+        echo '<h2 class="linked heading">'.sheaf::link("bib").'<span class="header_numeral">References</span></h2><table>';
         $lastSubsectionWasWork = false;
       }
       if ($tagPath === '/sheaf/references/reference') {
@@ -328,12 +328,12 @@ class Sheaf {
       if ($tagPath === '/sheaf/section/subsection' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
         echo "\n  ".'<a id="'.$id.'"></a><div class="subsection">';
-        echo '<h3 class="linked">'.sheaf::link($id).'<span class="header_numeral">'.$counter['section'].'.'.$counter['subsection'].'.</span> '. $attrs['title'].'</h3>';
+        echo '<h3 class="linked heading">'.sheaf::link($id).'<div><span class="header_numeral">'.$counter['section'].'.'.$counter['subsection'].'.</span> '. $attrs['title'].'</div></h3>';
       }
       if ($tagPath === '/sheaf/appendix/subsection' && (!array_key_exists('visible', $attrs) || $attrs['visible'] !== 'false')) {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['appendix'].'.'.$counter['subsection']);
         echo "\n  ".'<a id="'.$id.'"></a><div class="subsection">';
-        echo '<h3 class="linked">'.sheaf::link($id).'<span class="header_numeral">'.$counter['appendix'].'.'.$counter['subsection'].'.</span> '. $attrs['title'].'</h3>';
+        echo '<h3 class="linked heading">'.sheaf::link($id).'<div><span class="header_numeral">'.$counter['appendix'].'.'.$counter['subsection'].'.</span> '. $attrs['title'].'</div></h3>';
       }
       if ($pathLeaf === 'assignment') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
@@ -342,9 +342,9 @@ class Sheaf {
            . '<a id="assignment'.sheaf::strval0($counter['assignment']).'"></a>'
            . '<a id="hw'.sheaf::strval0($counter['assignment']).'"></a>'
            . '<div class="work assignment">';
-        echo '<h3 class="work_header linked">'.sheaf::link($id).'<span class="header_numeral">'
+        echo '<h3 class="work_header linked heading">'.sheaf::link($id).'<div><span class="header_numeral">'
            . $counter['section'].'.'.$counter['subsection'].'.</span> '
-           . '<span class="work_title">Assignment #'.sheaf::strval0($counter['assignment']).': '.$attrs['title'].'</span></h3>';
+           . '<span class="work_title">Assignment #'.sheaf::strval0($counter['assignment']).': '.$attrs['title'].'</span></div></h3>';
       }
       if ($pathLeaf === 'project') {
         $id = (array_key_exists('id', $attrs)) ? $attrs['id'] : ($counter['section'].'.'.$counter['subsection']);
@@ -353,9 +353,9 @@ class Sheaf {
            . '<a id="project'.sheaf::strval0($counter['project']).'"></a>'
            . '<a id="hw'.sheaf::strval0($counter['project']).'"></a>'
            . '<div class="work project">';
-        echo '<h3 class="work_header linked">'.sheaf::link($id).'<span class="header_numeral">'
+        echo '<h3 class="work_header linked heading">'.sheaf::link($id).'<div><span class="header_numeral">'
            . $counter['section'].'.'.$counter['subsection'].'.</span> '
-           . '<span class="work_title">Project #'.sheaf::strval0($counter['project']).': '.$attrs['title'].'</span></h3>';
+           . '<span class="work_title">Project #'.sheaf::strval0($counter['project']).': '.$attrs['title'].'</span></div></h3>';
       }
 
       // Categorized blocks that appear at top level.
